@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KOMBAT-WAR">
+    <meta name="theme-color" content="#0a0e18">
+    <title>Kombat-War: Russian Military Asset Duel</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <!-- Fonts load async — game renders immediately with system fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="radar-container">
+        <div class="radar-sweep"></div>
+        <div class="radar-grid"></div>
+    </div>
+
+    <div class="game-wrapper">
+        <header class="hud-header">
+            <div class="hud-logo">
+                <span class="hud-glow-text">KOMBAT-WAR</span>
+                <span class="hud-tag">TACTICAL CARD BATTLE</span>
+            </div>
+            <div class="tab-container">
+                <button class="tab-btn active-tab" id="tab-combat">ACTIVE ARENA</button>
+                <button class="tab-btn" id="tab-glossary">CLASSIFIED DOSSIER</button>
+            </div>
+            <div class="game-controls">
+                <div class="control-group">
+                    <label for="game-mode-select" class="hud-label">ENGAGEMENT PROTOCOL:</label>
+                    <select id="game-mode-select" class="hud-select">
+                        <option value="classic">CLASSIC RANK WAR (2 to ACE)</option>
+                        <option value="selector">STAT-SELECTOR WAR (TOP TRUMPS)</option>
+                    </select>
+                </div>
+                <button id="btn-new-game" class="hud-btn btn-primary">INITIALIZE DECK</button>
+            </div>
+        </header>
+
+        <main class="tab-content" id="view-combat">
+            <div class="battle-arena">
+                <section class="player-panel player-user" id="user-panel">
+                    <div class="panel-header">
+                        <div class="player-status">
+                            <span class="status-indicator active"></span>
+                            <h2 class="player-name">PLAYER_COM_01</h2>
+                        </div>
+                        <div class="deck-counter">
+                            <span class="label">RESERVES:</span>
+                            <span id="user-deck-count" class="counter-value">26</span>
+                        </div>
+                    </div>
+                    <div class="deck-slot">
+                        <div class="card-back-pile" id="user-draw-pile">
+                            <div class="pile-card card-3"></div>
+                            <div class="pile-card card-2"></div>
+                            <div class="pile-card active-draw-btn">
+                                <span class="draw-label">ENGAGE</span>
+                                <span class="draw-subtext">CLICK TO DRAW</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="clash-zone">
+                    <div class="battle-status-display">
+                        <div id="battle-announcement" class="announcement-banner">READY TO DEPLOY</div>
+                        <div id="selected-stat-banner" class="stat-banner hidden">ACTIVE ATTRIBUTE: <span id="active-stat-name">FIREPOWER</span></div>
+                    </div>
+                    <div class="clash-board">
+                        <div class="clash-slot" id="user-clash-slot">
+                            <div class="slot-placeholder">DEPLOYING CARD</div>
+                        </div>
+                        <div class="vs-divider">
+                            <div class="vs-glow">VS</div>
+                            <div class="vs-line"></div>
+                        </div>
+                        <div class="clash-slot" id="ai-clash-slot">
+                            <div class="slot-placeholder">DEPLOYING CARD</div>
+                        </div>
+                    </div>
+                    <div class="battle-action-hub">
+                        <button id="btn-draw" class="hud-btn btn-action">DEPLOY ASSETS</button>
+                        <button id="btn-resolve-war" class="hud-btn btn-war hidden">RESOLVE TIEBREAK</button>
+                    </div>
+                </section>
+
+                <section class="player-panel player-ai" id="ai-panel">
+                    <div class="panel-header">
+                        <div class="player-status">
+                            <span class="status-indicator"></span>
+                            <h2 class="player-name">COM_TARGET_RED</h2>
+                        </div>
+                        <div class="deck-counter">
+                            <span class="label">RESERVES:</span>
+                            <span id="ai-deck-count" class="counter-value">26</span>
+                        </div>
+                    </div>
+                    <div class="deck-slot">
+                        <div class="card-back-pile" id="ai-draw-pile">
+                            <div class="pile-card card-3"></div>
+                            <div class="pile-card card-2"></div>
+                            <div class="pile-card active-ai-deck">
+                                <span class="draw-label">TARGET</span>
+                                <span class="draw-subtext">WAITING</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <main class="tab-content hidden-view" id="view-glossary">
+            <section class="glossary-view">
+                <div class="glossary-list-panel">
+                    <h3 class="glossary-title">TACTICAL ASSET DOSSIER DATABASE // UKRAINE OPERATION</h3>
+                    <div class="glossary-grid" id="glossary-card-grid"></div>
+                </div>
+                <div class="glossary-details-panel" id="glossary-dossier-panel"></div>
+            </section>
+        </main>
+
+        <footer class="hud-footer">
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <span class="terminal-title">BATTLE FEED LOG // UNCLASSIFIED</span>
+                    <span class="system-time">SYS_TIME: --:--:--</span>
+                </div>
+                <div class="terminal-body" id="combat-log">
+                    <div class="log-entry system">> Kombat-War Tactical Engine loaded.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="hud-modal hidden" id="game-over-modal">
+        <div class="modal-content glassmorphism">
+            <h2 id="modal-title" class="hud-glow-text">CAMPAIGN COMPLETE</h2>
+            <p id="modal-desc">All enemy assets have been neutralized or captured.</p>
+            <div class="modal-stats">
+                <div class="stat-row">Rounds Played: <span id="modal-rounds">0</span></div>
+                <div class="stat-row">Tiebreak Wars Triggered: <span id="modal-wars">0</span></div>
+            </div>
+            <button id="btn-restart" class="hud-btn btn-primary">RE-DEPLOY DECK</button>
+        </div>
+    </div>
+
+    <!-- All card images embedded as base64 — fully offline, no file paths needed -->
+    <script src="assets-mobile.js"></script>
+    <script src="game.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</body>
+</html>
