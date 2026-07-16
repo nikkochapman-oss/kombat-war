@@ -1,0 +1,48 @@
+name: Auto-create PR for agent branches
+
+on:
+  push:
+    branches:
+      - critic-feedback-*
+      - monthly-update-*
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Create Pull Request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+            const isCritic = branch.startsWith('critic-feedback-');
+            const title = isCritic
+              ? `Critic feedback - ${branch.replace('critic-feedback-', '')}`
+              : `Monthly update - ${branch.replace('monthly-update-', '')}`;
+            const body = isCritic
+              ? 'Monthly review from 4 sub-agent perspectives (WarHammer, Casual Cleo, Colonel Kovacs, UX Vera). **Merge to main before the 1st so the Game Updater can act on it.**'
+              : 'Auto-generated monthly card additions and critic feedback improvements. Review new cards, stats, and PATCH_NOTES.md before merging. After merge → redeploy to Netlify.';
+
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              state: 'open'
+            });
+
+            if (prs.length === 0) {
+              await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                head: branch,
+                base: 'main'
+              });
+              console.log(`PR created for branch: ${branch}`);
+            } else {
+              console.log(`PR already exists for branch: ${branch}`);
+            }
