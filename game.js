@@ -1,10 +1,11 @@
 // Kombat-War — Core Game State & Logic Engine
 
-// ── DECK DATA: 26 Russian Military Assets Deployed in Ukraine ──
+// ── DECK DATA: Military Assets Deployed in Ukraine ──
 const MILITARY_ASSETS = [
     {
         rank: 2,
         name: "Orlan-10",
+        country: "RU",
         type: "Tactical Reconnaissance UAV",
         description: "Composite-body reconnaissance drone operating as the primary target acquisition workhorse of tactical artillery batteries, deploying day/night thermal camera payload bays.",
         stats: { fp: 25, def: 20, spd: 45, rng: 75, tec: 70 },
@@ -15,6 +16,7 @@ const MILITARY_ASSETS = [
     {
         rank: 2,
         name: "Supercam S350",
+        country: "RU",
         type: "High-Resolution Mapping UAV",
         description: "Advanced tactical surveillance drone used for high-fidelity battlefield intelligence gathering, digital mapping, and real-time artillery fire adjustment.",
         stats: { fp: 20, def: 22, spd: 40, rng: 80, tec: 75 },
@@ -25,6 +27,7 @@ const MILITARY_ASSETS = [
     {
         rank: 3,
         name: "BTR-82A",
+        country: "RU",
         type: "Wheeled Armored Personnel Carrier",
         description: "Amphibious 8x8 wheeled personnel carrier heavily upgraded with a stabilized 30mm 2A72 autocannon and thermal targeting sights for active front-line infantry support.",
         stats: { fp: 55, def: 45, spd: 80, rng: 50, tec: 60 },
@@ -35,6 +38,7 @@ const MILITARY_ASSETS = [
     {
         rank: 3,
         name: "MT-LB",
+        country: "BOTH",
         type: "Light Multi-Purpose Armored Towing Vehicle",
         description: "Classic tracked auxiliary armored tractor, widely deployed in various utility, logistics, and improvised battlefield weapons-carrying roles across active frontlines.",
         stats: { fp: 35, def: 40, spd: 61, rng: 45, tec: 40 },
@@ -45,6 +49,7 @@ const MILITARY_ASSETS = [
     {
         rank: 4,
         name: "Lancet-3",
+        country: "RU",
         type: "Loitering Munition Dagger",
         description: "Advanced precision loitering weapon featuring cross-wing stabilizers and optical-electronic tracking to execute high-speed diving strikes against counter-battery artillery.",
         stats: { fp: 75, def: 15, spd: 80, rng: 60, tec: 85 },
@@ -55,6 +60,7 @@ const MILITARY_ASSETS = [
     {
         rank: 4,
         name: "Geran-2",
+        country: "RU",
         type: "Kamikaze Loitering Munition",
         description: "Long-range delta-wing suicide drone utilizing satellite and inertial guidance to conduct deep standoff strikes on critical logistics, command hubs, and rear infrastructure.",
         stats: { fp: 80, def: 18, spd: 55, rng: 90, tec: 72 },
@@ -65,6 +71,7 @@ const MILITARY_ASSETS = [
     {
         rank: 5,
         name: "FPV Fiber-Optic Drone",
+        country: "BOTH",
         type: "Tactically Modified Strike Drone",
         description: "Innovative wire-guided quadcopter strike drone employing physical fiber-optic cabling, rendering it completely immune to active electronic warfare (EW) jamming systems.",
         stats: { fp: 78, def: 10, spd: 92, rng: 30, tec: 90 },
@@ -75,6 +82,7 @@ const MILITARY_ASSETS = [
     {
         rank: 5,
         name: "FPV Ghoul (Upyr)",
+        country: "RU",
         type: "Wireless Strike Quadcopter",
         description: "Prominent tactical strike quadcopter carrying high-explosive RPG warheads, deploying dynamic frequency-hopping channels to bypass local electronic defense grids.",
         stats: { fp: 74, def: 8, spd: 85, rng: 25, tec: 78 },
@@ -85,6 +93,7 @@ const MILITARY_ASSETS = [
     {
         rank: 6,
         name: "BMP-3",
+        country: "RU",
         type: "Tracked Infantry Fighting Vehicle",
         description: "Highly armed amphibious tracked combat vehicle featuring a dual gun turret integrating a 100mm 2A70 gun-launcher and a coaxial 30mm 2A72 autocannon.",
         stats: { fp: 72, def: 55, spd: 70, rng: 60, tec: 72 },
@@ -95,6 +104,7 @@ const MILITARY_ASSETS = [
     {
         rank: 6,
         name: "BMP-2M 'Berezhok'",
+        country: "RU",
         type: "Modernized Infantry Fighting Vehicle",
         description: "Heavily upgraded tracked infantry fighting vehicle fitted with the Berezhok combat tower, integrating 4 ready-to-fire Kornet-EM ATGMs and an automatic grenade launcher.",
         stats: { fp: 75, def: 50, spd: 65, rng: 65, tec: 78 },
@@ -105,6 +115,7 @@ const MILITARY_ASSETS = [
     {
         rank: 7,
         name: "T-72B3M",
+        country: "RU",
         type: "Modernized Main Battle Tank",
         description: "The primary battle tank of the active armored formations, upgraded with advanced Sosna-U thermal sights, Relikt reactive armor, and heavy 1130hp diesel engines.",
         stats: { fp: 82, def: 80, spd: 60, rng: 55, tec: 75 },
@@ -115,6 +126,7 @@ const MILITARY_ASSETS = [
     {
         rank: 7,
         name: "T-80BVM",
+        country: "RU",
         type: "Gas-Turbine Main Battle Tank",
         description: "Gas-turbine engine main battle tank optimized for sub-zero ignition, featuring high tactical mobility, Relikt reactive shields, and advanced digital fire-control arrays.",
         stats: { fp: 84, def: 82, spd: 68, rng: 56, tec: 77 },
@@ -125,6 +137,7 @@ const MILITARY_ASSETS = [
     {
         rank: 8,
         name: "Ka-52 'Alligator'",
+        country: "RU",
         type: "Attack Helicopter",
         description: "Unique heavy combat support helicopter featuring coaxial contra-rotating rotors, heavily armored cockpit capsule, and firing high-speed laser-guided Vikhr ATGMs.",
         stats: { fp: 88, def: 72, spd: 80, rng: 70, tec: 88 },
@@ -135,6 +148,7 @@ const MILITARY_ASSETS = [
     {
         rank: 8,
         name: "Mi-28N 'Night Hunter'",
+        country: "RU",
         type: "Attack Helicopter",
         description: "All-weather heavy tandem combat helicopter armed with high-velocity precision missiles and a chin-mounted 30mm automatic cannon for close air support operations.",
         stats: { fp: 86, def: 75, spd: 80, rng: 68, tec: 86 },
@@ -145,6 +159,7 @@ const MILITARY_ASSETS = [
     {
         rank: 9,
         name: "T-90M 'Proryv'",
+        country: "RU",
         type: "Advanced Main Battle Tank",
         description: "Deeply modernized armored platform outfitted with modular Relikt explosive reactive armor, the Kalina automated combat fire control matrix, and Nakidka thermal stealth coating.",
         stats: { fp: 88, def: 90, spd: 60, rng: 58, tec: 85 },
@@ -155,6 +170,7 @@ const MILITARY_ASSETS = [
     {
         rank: 9,
         name: "TOS-1A 'Solntsepek'",
+        country: "RU",
         type: "Heavy Thermobaric Rocket Launcher",
         description: "Highly destructive short-range rocket system firing 220mm thermobaric unguided missiles that generate intense high-temperature blast waves over wide tactical areas.",
         stats: { fp: 92, def: 75, spd: 60, rng: 40, tec: 78 },
@@ -165,6 +181,7 @@ const MILITARY_ASSETS = [
     {
         rank: 10,
         name: "S-350 'Vityaz'",
+        country: "RU",
         type: "Medium-Range SAM System",
         description: "Modern point defense battery utilizing highly agile interceptor missiles and active AESA radar guidance to counter low-altitude saturated drone and cruise missile attacks.",
         stats: { fp: 85, def: 85, spd: 50, rng: 88, tec: 92 },
@@ -175,6 +192,7 @@ const MILITARY_ASSETS = [
     {
         rank: 10,
         name: "Pantsir-S1",
+        country: "RU",
         type: "Short-Range SAM & AAA System",
         description: "Self-propelled truck-mounted air defense system integrating twin 30mm automatic autocannons and 12 command-guided radar-intercept missiles for drone shielding.",
         stats: { fp: 82, def: 88, spd: 60, rng: 70, tec: 90 },
@@ -185,6 +203,7 @@ const MILITARY_ASSETS = [
     {
         rank: 11,
         name: "Project 636.3 Kilo",
+        country: "RU",
         type: "Diesel-Electric Attack Submarine",
         description: "Extremely silent diesel-electric attack submarine of the Black Sea Fleet, actively deployed to launch Kalibr cruise missiles against deep land-based infrastructure targets.",
         stats: { fp: 90, def: 84, spd: 65, rng: 88, tec: 88 },
@@ -195,6 +214,7 @@ const MILITARY_ASSETS = [
     {
         rank: 11,
         name: "Yas-M (Kazan)",
+        country: "RU",
         type: "Nuclear Cruise Missile Submarine",
         description: "Highly silent 4th-generation nuclear-powered cruise missile submarine optimized for deep-sea standalone stealth patrol and firing hypersonic Kalibr/Zircon cruise missiles.",
         stats: { fp: 94, def: 88, spd: 72, rng: 90, tec: 92 },
@@ -205,6 +225,7 @@ const MILITARY_ASSETS = [
     {
         rank: 12,
         name: "Iskander-M",
+        country: "RU",
         type: "Theater Ballistic Missile Launcher",
         description: "High-mobility road ballistic system deploying two 9M723 maneuvering hypersonic missiles designed to launch precision standoff strikes against command infrastructure.",
         stats: { fp: 95, def: 40, spd: 90, rng: 92, tec: 90 },
@@ -215,6 +236,7 @@ const MILITARY_ASSETS = [
     {
         rank: 12,
         name: "Su-34 'Fullback'",
+        country: "RU",
         type: "All-Weather Strike Fighter",
         description: "Heavy twin-engine tactical fighter-bomber featuring a side-by-side cockpit layout, extensively deployed to launch satellite-guided UMPK precision glide bombs.",
         stats: { fp: 92, def: 68, spd: 88, rng: 80, tec: 86 },
@@ -225,6 +247,7 @@ const MILITARY_ASSETS = [
     {
         rank: 13,
         name: "S-400 'Triumf'",
+        country: "RU",
         type: "Layered Long-Range SAM battery",
         description: "Layered mobile surface-to-air missile system utilizing advanced low-altitude surveillance radar tracking arrays to engage long-range aircraft and theater missiles.",
         stats: { fp: 92, def: 94, spd: 45, rng: 96, tec: 95 },
@@ -235,6 +258,7 @@ const MILITARY_ASSETS = [
     {
         rank: 13,
         name: "Tornado-S",
+        country: "RU",
         type: "Upgraded Precision MLRS Launcher",
         description: "Modernized heavy 300mm multiple rocket launcher deploying GLONASS satellite-guided projectiles to execute deep counter-battery precision fire missions.",
         stats: { fp: 94, def: 42, spd: 65, rng: 88, tec: 85 },
@@ -245,6 +269,7 @@ const MILITARY_ASSETS = [
     {
         rank: 14,
         name: "Zircon (Tsirkon)",
+        country: "RU",
         type: "Hypersonic Cruise Missile",
         description: "Scramjet-powered maneuvering anti-ship hypersonic cruise missile designed to hit extreme speeds up to Mach 9 and neutralize naval battle formations and land centers.",
         stats: { fp: 100, def: 25, spd: 100, rng: 95, tec: 98 },
@@ -255,6 +280,7 @@ const MILITARY_ASSETS = [
     {
         rank: 14,
         name: "Kinzhal (Kh-47M2)",
+        country: "RU",
         type: "Aero-ballistic Hypersonic Missile",
         description: "Air-launched hypersonic ballistic missile carried by modified MiG-31K interceptors, executing complex high-speed evasive maneuvers during terminal weapon dives.",
         stats: { fp: 98, def: 20, spd: 100, rng: 98, tec: 96 },
@@ -837,11 +863,16 @@ function renderCard(card, container, isFaceDown, isInteractive, onStatClick) {
     const RANK_LABELS = { 11: 'J', 12: 'Q', 13: 'K', 14: 'A' };
     const badgeText = RANK_LABELS[card.rank] ?? card.rank;
 
+    const countryFlags = { RU: '🇷🇺', UA: '🇺🇦', BOTH: '🇷🇺 🇺🇦' };
+    const countryLabels = { RU: 'RUSSIA', UA: 'UKRAINE', BOTH: 'RUSSIA · UKRAINE' };
+    const flagHTML = card.country ? `<span class="card-country-flag" title="${countryLabels[card.country] ?? ''}">${countryFlags[card.country] ?? ''}</span>` : '';
+
     cardEl.innerHTML = `
         <div class="card-header">
             <span class="card-title">${card.name}</span>
             <span class="card-badge">${badgeText}</span>
         </div>
+        <div class="card-country-bar card-country-${(card.country ?? 'RU').toLowerCase()}">${flagHTML} ${countryLabels[card.country] ?? ''}</div>
         <div class="card-img-container">
             <img class="card-image" src="${imgSrc}" alt="${card.name}" onerror="this.onerror=null;this.src='${fallbackSrc}'">
             <div class="card-overlay-tag">// NATO: ${card.nato}</div>
@@ -1033,6 +1064,7 @@ function renderDossierDetail(card) {
             <div class="dossier-classification">UNCLASSIFIED // INTEL SECURE</div>
             <h4 class="dossier-title">${card.name}</h4>
             <div class="dossier-subtitle">${card.type.toUpperCase()} (NATO: ${card.nato})</div>
+            <div class="dossier-country card-country-${(card.country ?? 'RU').toLowerCase()}">${{ RU: '🇷🇺 RUSSIA', UA: '🇺🇦 UKRAINE', BOTH: '🇷🇺 RUSSIA · 🇺🇦 UKRAINE' }[card.country] ?? ''}</div>
         </div>
         <div class="dossier-img-container">
             <img class="dossier-img" src="${imgSrc}" alt="${card.name}" onerror="this.onerror=null;this.src='${getGenericFallback(card)}'">

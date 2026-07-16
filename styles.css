@@ -667,6 +667,36 @@ body {
 .rarity-epic .card-badge { color: hsl(var(--glow-epic)); border-color: hsla(var(--glow-epic), 0.3); }
 .rarity-legendary .card-badge { color: hsl(var(--glow-legendary)); border-color: hsla(var(--glow-legendary), 0.3); }
 
+/* Country bar */
+.card-country-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    font-family: var(--font-header);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.card-country-ru   { background: rgba(210, 39, 48, 0.18); color: #ff7b7b; }
+.card-country-ua   { background: rgba(0, 87, 183, 0.22); color: #6eb3ff; }
+.card-country-both { background: rgba(120, 60, 140, 0.20); color: #c8a0e8; }
+
+.dossier-country {
+    margin-top: 4px;
+    font-family: var(--font-header);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.dossier-country.card-country-ru   { background: rgba(210, 39, 48, 0.20); color: #ff7b7b; }
+.dossier-country.card-country-ua   { background: rgba(0, 87, 183, 0.25); color: #6eb3ff; }
+.dossier-country.card-country-both { background: rgba(120, 60, 140, 0.22); color: #c8a0e8; }
+
 /* Card Image Area */
 .card-img-container {
     height: 110px;
