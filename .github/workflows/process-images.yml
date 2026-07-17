@@ -31,7 +31,7 @@ jobs:
               const { varName, url, cardName } = entry;
               console.log(`Downloading image for ${cardName}: ${url}`);
               try {
-                const b64 = execSync(`curl -sL --max-time 30 "${url}" | base64 -w 0`, { maxBuffer: 20 * 1024 * 1024 }).toString().trim();
+                const b64 = execSync(`curl -sL --max-time 30 -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "${url}" | base64 -w 0`, { maxBuffer: 20 * 1024 * 1024 }).toString().trim();
                 if (!b64 || b64.length < 100) {
                   console.log(`  SKIP: empty or too small for ${cardName}`);
                   continue;
