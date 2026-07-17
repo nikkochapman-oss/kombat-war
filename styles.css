@@ -10,7 +10,7 @@
     --color-secondary: 96, 35%, 62%; /* Matte Olive Drab */
     --color-accent: 12, 75%, 55%; /* Tactical Rust Red */
     --color-text-bright: 0, 0%, 96%;
-    --color-text-dim: 220, 10%, 65%;
+    --color-text-dim: 220, 10%, 76%;
     --color-border-glow: 38, 100%, 55%;
     
     /* NATO Tier Spec Colors */
@@ -1490,10 +1490,20 @@ body {
     .card-header { height: 34px; }
     .card-title { font-size: 0.8rem; max-width: 78%; }
     .card-badge { font-size: 0.75rem; }
-    .card-img-container { height: 95px; }
+    .card-img-container { height: 130px; }
+    .card-image { filter: sepia(0.35) contrast(1.1) brightness(1.05); }
     .card-description { height: 34px; font-size: 0.62rem; }
     .card-stats-list { gap: 3px; padding: 5px 8px; }
     .card-stat-row { font-size: 0.67rem; padding: 2px 4px; }
+    .interactive-card .card-stat-row {
+        border: 1px solid hsla(var(--color-primary), 0.25);
+        border-radius: 3px;
+    }
+    .interactive-card .card-stat-row:active {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: hsl(var(--color-primary));
+        color: hsl(var(--color-secondary));
+    }
 
     /* ── ACTION BUTTONS: full-width touch targets ── */
     .battle-action-hub { margin-top: 10px; }

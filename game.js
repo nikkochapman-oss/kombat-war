@@ -62,10 +62,10 @@ const MILITARY_ASSETS = [
         name: "Geran-2",
         country: "RU",
         type: "Kamikaze Loitering Munition",
-        description: "Russia bought thousands of these cheap Iranian-made drones and used them to attack Ukrainian power plants and cities at night. Ukraine has shot down hundreds, but they are difficult to stop when launched in large swarms. Long-range straight-wing cruise drone (Russian designation for the Iranian Shahed-136) utilizing satellite and inertial guidance to conduct deep standoff strikes on critical infrastructure.",
+        description: "Originally imported from Iran and now mass-produced domestically at Russia's Alabuga facility in Tatarstan, the Geran-2 has been fired by the thousands at Ukrainian cities and power infrastructure — becoming a nightly threat to civilians. Long-range straight-wing cruise drone (Russian designation for the Iranian Shahed-136 derivative) utilizing satellite and inertial guidance to conduct deep standoff strikes on critical infrastructure.",
         stats: { fp: 80, def: 18, spd: 55, rng: 90, tec: 72 },
-        nato: "Shahed-136",
-        specs: { weight: "200 kg", warhead: "40 kg HE-Blast", speed: "185 km/h", range: "2,000 km" },
+        nato: "N/A (Iranian Shahed-136 derivative)",
+        specs: { weight: "200 kg", warhead: "50 kg HE-Blast", speed: "185 km/h", range: "2,000 km" },
         citation: "CSIS Missile Threat — Long-Range Strike Platforms in the Ukraine Theater, 2024"
     },
     {
@@ -73,7 +73,7 @@ const MILITARY_ASSETS = [
         name: "FPV Fiber-Optic Drone",
         country: "BOTH",
         type: "Tactically Modified Strike Drone",
-        description: "A first-person-view attack drone guided by a physical fiber-optic cable instead of radio signals, making it completely immune to electronic jamming — one of the most innovative adaptations of the Ukraine war. Innovative wire-guided quadcopter employing physical fiber-optic cabling, rendering it completely immune to active electronic warfare (EW) jamming systems.",
+        description: "A first-person-view attack drone guided by a physical fiber-optic cable instead of radio signals, making it completely immune to electronic jamming — one of the most innovative adaptations of the Ukraine war. Innovative wire-guided strike drone employing physical fiber-optic cabling, rendering it completely immune to active electronic warfare (EW) jamming systems.",
         stats: { fp: 78, def: 10, spd: 92, rng: 30, tec: 90 },
         nato: "N/A",
         specs: { weight: "1.8 kg", armaments: "PG-7VL Shaped HEAT Charge", speed: "120 km/h", guidance: "Fiber-Optic Wire" },
@@ -104,9 +104,9 @@ const MILITARY_ASSETS = [
     {
         rank: 6,
         name: "BMP-2M 'Berezhok'",
-        country: "BOTH",
+        country: "RU",
         type: "Modernized Infantry Fighting Vehicle",
-        description: "An upgraded Soviet infantry vehicle fitted with the Berezhok turret module — originally designed in Kyiv, Ukraine — now operated by Russian forces, mounting four laser-guided anti-tank missiles alongside an automatic cannon. Heavily upgraded tracked infantry fighting vehicle fitted with the Berezhok combat module (originally developed by Kyiv's KBTM design bureau), integrating 4 ready-to-fire Kornet-EM ATGMs and an automatic grenade launcher.",
+        description: "An upgraded Soviet infantry vehicle fitted with the Berezhok turret module — developed by Russia's KBP Tula design bureau — mounting four laser-guided anti-tank missiles alongside an automatic cannon for devastating anti-armor firepower. Heavily upgraded tracked infantry fighting vehicle fitted with the Berezhok combat module (developed by Russia's KBP Instrument Design Bureau, Tula), integrating 4 ready-to-fire Kornet-EM ATGMs and an automatic grenade launcher.",
         stats: { fp: 75, def: 50, spd: 65, rng: 65, tec: 78 },
         nato: "BMP-2M",
         specs: { weight: "14.3 tons", armaments: "30mm Autocannon & Kornet ATGMs", speed: "65 km/h", crew: "3 + 7 Troops" },
@@ -173,7 +173,7 @@ const MILITARY_ASSETS = [
         country: "RU",
         type: "Heavy Thermobaric Rocket Launcher",
         description: "A Russian tank-chassis rocket launcher that fires thermobaric (vacuum bomb) rockets creating massive pressure-blast waves over wide areas. Their use in populated areas in Ukraine has been documented by Human Rights Watch. Highly destructive short-range rocket system firing 220mm thermobaric unguided rockets generating intense high-temperature blast waves over wide tactical areas.",
-        stats: { fp: 92, def: 75, spd: 60, rng: 40, tec: 78 },
+        stats: { fp: 92, def: 75, spd: 60, rng: 7, tec: 78 },
         nato: "TOS-1A",
         specs: { weight: "45.3 tons", caliber: "220mm (24 launch tubes)", range: "6,000 m", chassis: "T-72 Tank Tracked" },
         citation: "RUSI Land Combat — Russian Thermobaric Artillery Assessment, Dec 2023"
@@ -185,7 +185,7 @@ const MILITARY_ASSETS = [
         type: "Medium-Range SAM System",
         description: "A modern Russian air defense system that tracks and fires at dozens of incoming drones and missiles simultaneously using an active radar — protecting Russian formations from Ukrainian long-range strikes. Modern point defense battery utilizing highly agile interceptor missiles and active AESA radar guidance to counter low-altitude saturated drone and cruise missile attacks.",
         stats: { fp: 85, def: 85, spd: 50, rng: 88, tec: 92 },
-        nato: "Not formally designated (SA-28 unofficial)",
+        nato: "No NATO reporting name assigned",
         specs: { missiles: "9M96E2 active radar", speed: "Mach 5.1", range: "120 km", tracking: "AESA Radar" },
         citation: "RUSI Tactical Anti-Access/Area-Denial (A2/AD) Network Review, 2024"
     },
@@ -213,12 +213,12 @@ const MILITARY_ASSETS = [
     },
     {
         rank: 11,
-        name: "Yas-M (Kazan)",
+        name: "Yasen-M (K-561 Kazan)",
         country: "RU",
         type: "Nuclear Cruise Missile Submarine",
-        description: "Russia's most advanced nuclear-powered submarine, capable of firing cruise missiles against targets over 1,500 km away while remaining submerged and nearly undetectable — a strategic-level threat to the European theater. Highly silent 4th-generation nuclear-powered cruise missile submarine optimized for deep-sea standalone stealth patrol and firing long-range Kalibr cruise missiles.",
+        description: "Russia's most advanced nuclear-powered attack submarine — K-561 Kazan — capable of firing cruise missiles at targets over 1,500 km away while remaining submerged and nearly undetectable, representing a strategic-level threat to European infrastructure. Highly silent 4th-generation nuclear-powered cruise missile submarine (NATO: Graney-M) optimized for deep-sea standalone stealth patrol and firing long-range Kalibr cruise missiles.",
         stats: { fp: 94, def: 88, spd: 72, rng: 90, tec: 92 },
-        nato: "Yasen / Graney",
+        nato: "Graney-M",
         specs: { displacement: "13,800 tons", armaments: "Kalibr Cruise Missiles (Zircon integration planned)", speed: "28 knots", crew: "64 submariners" },
         citation: "Royal United Services Institute (RUSI) Submarine Threat Assessment, 2024"
     },
@@ -230,7 +230,7 @@ const MILITARY_ASSETS = [
         description: "Russia's most feared surface-to-surface missile system — a mobile launcher that fires two precision ballistic missiles at near-hypersonic speed, used hundreds of times against Ukrainian cities, power plants, and command posts. High-mobility road ballistic system deploying two 9M723 maneuvering missiles to execute precision standoff strikes against critical infrastructure.",
         stats: { fp: 95, def: 40, spd: 90, rng: 92, tec: 90 },
         nato: "SS-26 Stone",
-        specs: { weight: "3.8 tons", payload: "480 kg Warhead", speed: "Mach 5.9", range: "500 km" },
+        specs: { weight: "3.8 tons", payload: "480 kg Warhead", speed: "Mach 5.9", range: "500 km (declared); ~700–800 km (assessed)" },
         citation: "CSIS Missile Defense Project — Tactical Ballistic Missile Threat Profiles, 2024"
     },
     {
@@ -287,6 +287,61 @@ const MILITARY_ASSETS = [
         nato: "AS-24 Killjoy",
         specs: { speed: "Mach 10 claimed (Western est. Mach 4–5)", launch: "MiG-31K Jet Interceptor", range: "2,000 km", warhead: "500 kg HE-Fragmentation" },
         citation: "CSIS Missile Threat — Kinzhal Ballistic Interceptor Missile Profile, 2024"
+    },
+    {
+        rank: 8,
+        name: "Bayraktar TB2",
+        country: "UA",
+        type: "Medium-Altitude Long-Endurance Strike UAV",
+        description: "A Turkish-made armed drone flown by Ukraine that became a symbol of the war — it hovers up to 27 hours above the battlefield and fires precision-guided bombs at tanks, ships, and artillery below. In the early weeks of the 2022 invasion it destroyed hundreds of Russian vehicles and struck Russia's patrol boat Vasily Bykov near Snake Island. Medium-altitude long-endurance unmanned combat aerial vehicle carrying four MAM-L/C laser-guided bombs, operated via encrypted datalink with electro-optical/infrared targeting.",
+        stats: { fp: 62, def: 22, spd: 68, rng: 78, tec: 88 },
+        nato: "N/A",
+        specs: { weight: "650 kg MTOW", speed: "222 km/h", endurance: "27 hours", payload: "4× MAM-L/C guided bombs" },
+        citation: "Oryx Conflict Intelligence — Bayraktar TB2 Ukrainian Air Force Loss Inventory, 2024"
+    },
+    {
+        rank: 12,
+        name: "HIMARS M142",
+        country: "UA",
+        type: "Precision Multiple Launch Rocket System",
+        description: "An American rocket artillery system mounted on a truck that fires GPS-guided rockets from 80–92 km away — far beyond Russian counter-battery range — and can relocate in minutes to avoid return fire. When Ukraine received HIMARS in summer 2022, it destroyed dozens of Russian ammunition depots that had supplied front-line artillery for months. Light wheeled precision multiple launch rocket system firing six GMLRS GPS-guided rockets (92 km) or one ATACMS ballistic missile (300 km+).",
+        stats: { fp: 88, def: 42, spd: 78, rng: 85, tec: 92 },
+        nato: "N/A",
+        specs: { weight: "16.2 tons combat", rockets: "6× GMLRS (92 km) or 1× ATACMS (300 km)", speed: "94 km/h road", crew: "3" },
+        citation: "CSIS Missile Defense Project — M142 HIMARS in Ukraine: Strike Capability Assessment, 2024"
+    },
+    {
+        rank: 13,
+        name: "R-360 Neptune",
+        country: "UA",
+        type: "Anti-Ship Cruise Missile",
+        description: "A Ukrainian-designed cruise missile that flies low over the sea to avoid radar detection — Ukraine fired two at the Moskva, Russia's Black Sea Fleet flagship, on 13 April 2022, sinking the largest warship destroyed in combat since World War II. Developed by Kyiv's Luch Design Bureau, the Neptune represents Ukraine's most consequential domestically-produced weapon of the war. Subsonic sea-skimming cruise missile using the ARGS-54 active radar seeker and inertial navigation for autonomous terminal guidance against surface combatants.",
+        stats: { fp: 90, def: 15, spd: 62, rng: 88, tec: 88 },
+        nato: "N/A",
+        specs: { weight: "870 kg", warhead: "150 kg HEAT", range: "280–400 km", guidance: "ARGS-54 Active Radar + INS" },
+        citation: "IISS Strategic Survey — Black Sea Fleet Maritime Strike Operations, 2024"
+    },
+    {
+        rank: 7,
+        name: "T-64BV",
+        country: "UA",
+        type: "Main Battle Tank",
+        description: "Ukraine's most numerous main battle tank — a 1970s Soviet-designed machine continuously upgraded with explosive reactive armor, still fighting on the front lines against Russia's more modern T-72 and T-80 variants. The T-64 was designed at the Kharkiv Morozov Design Bureau in Ukraine, making it the only Soviet-era main battle tank designed on Ukrainian soil — now defending it. Main battle tank of the Ukrainian Ground Forces fitted with Kontakt-1 ERA and a 125mm smoothbore gun.",
+        stats: { fp: 72, def: 65, spd: 60, rng: 48, tec: 58 },
+        nato: "N/A",
+        specs: { weight: "38 tons", armaments: "125mm 2A46 Smoothbore Gun", armor: "Kontakt-1 ERA + Composite", speed: "60 km/h" },
+        citation: "IISS Military Balance 2024, Ukrainian Ground Forces Equipment, p. 108"
+    },
+    {
+        rank: 11,
+        name: "Patriot PAC-3",
+        country: "UA",
+        type: "Long-Range Air & Missile Defense System",
+        description: "The American Patriot air defense system, provided to Ukraine by the US and Germany, uses phased-array radar to track and shoot down ballistic missiles, cruise missiles, and aircraft at long range using hit-to-kill interceptors. In May 2023 a Ukrainian Patriot battery shot down Russian Kinzhal hypersonic missiles — the world's first combat intercept of that weapon type. Mobile theater air and missile defense system using the AN/MPQ-65 phased array radar and PAC-3 MSE hit-to-kill interceptors engaging ballistic missiles at 60+ km range.",
+        stats: { fp: 88, def: 80, spd: 42, rng: 90, tec: 95 },
+        nato: "N/A",
+        specs: { interceptors: "16× PAC-3 MSE Hit-to-Kill", range: "60+ km (ballistic), 150 km (aircraft)", radar: "AN/MPQ-65 Phased Array", crew: "90 per battery" },
+        citation: "Congressional Research Service — Patriot Missile Systems for Ukraine, 2024"
     }
 ];
 
@@ -794,8 +849,9 @@ function getGenericFallback(card) {
 
 // Cards whose asset filename extension differs from the default .jpg
 const FILE_EXT_MAP = {
-    'FPV_Fiber-Optic_Drone': 'assets/FPV_Fiber-Optic_Drone.webp',
-    'S-400_Triumf':          'assets/S-400_Triumf.JPG',
+    'FPV_Fiber-Optic_Drone':       'assets/FPV_Fiber-Optic_Drone.webp',
+    'S-400_Triumf':                'assets/S-400_Triumf.JPG',
+    'Yasen-M_(K-561_Kazan)':       'assets/Yas-M_(Kazan).jpg',
 };
 
 // Determine correct image asset filename from name (matching our 26 unique realistic photos)
