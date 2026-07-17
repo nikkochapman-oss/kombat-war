@@ -79,9 +79,9 @@ jobs:
             // Create PR using PAT (Actions token is blocked from creating PRs)
             const pat = process.env.KOMBAT_WAR_PAT;
             const { Octokit } = require('@octokit/rest');
-            const octokit = new Octokit({ auth: pat });
+            const patClient = new Octokit({ auth: pat });
 
-            const { data: prs } = await octokit.rest.pulls.list({
+            const { data: prs } = await patClient.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: `${context.repo.owner}:${branch}`,
@@ -94,7 +94,7 @@ jobs:
                 body = execSync('tail -60 PATCH_NOTES.md').toString();
               } catch(e) {}
 
-              await octokit.rest.pulls.create({
+              await patClient.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: `Monthly update - ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}`,
