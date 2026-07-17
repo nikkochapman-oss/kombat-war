@@ -14,74 +14,65 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Process pending images and create PR
+      - name: Process pending images
+        if: hashFiles('PENDING_IMAGES.json') != ''
         uses: actions/github-script@v7
-        env:
-          KOMBAT_WAR_PAT: ${{ secrets.KOMBAT_WAR_PAT }}
         with:
           script: |
             const fs = require('fs');
             const { execSync } = require('child_process');
 
             const branch = context.ref.replace('refs/heads/', '');
+            const pending = JSON.parse(fs.readFileSync('PENDING_IMAGES.json', 'utf8'));
+            let assetsContent = fs.readFileSync('assets-mobile.js', 'utf8');
+            let anyAdded = false;
 
-            // Check for pending images
-            if (!fs.existsSync('PENDING_IMAGES.json')) {
-              console.log('No PENDING_IMAGES.json found — skipping image processing');
-            } else {
-              const pending = JSON.parse(fs.readFileSync('PENDING_IMAGES.json', 'utf8'));
-              let assetsContent = fs.readFileSync('assets-mobile.js', 'utf8');
-              let anyAdded = false;
-
-              for (const entry of pending) {
-                const { varName, url, cardName } = entry;
-                console.log(`Downloading image for ${cardName}: ${url}`);
-                try {
-                  const b64 = execSync(`curl -sL --max-time 30 "${url}" | base64 -w 0`, { maxBuffer: 20 * 1024 * 1024 }).toString().trim();
-                  if (!b64 || b64.length < 100) {
-                    console.log(`  SKIP: empty or too small for ${cardName}`);
-                    continue;
-                  }
-                  // Detect mime type from URL
-                  const ext = url.split('.').pop().split('?')[0].toLowerCase();
-                  const mime = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
-                  const dataUri = `data:${mime};base64,${b64}`;
-                  // Append to assets-mobile.js
-                  assetsContent += `\nwindow.${varName} = "${dataUri}";\n`;
-                  anyAdded = true;
-                  console.log(`  OK: ${varName} added (${Math.round(b64.length / 1024)}kb)`);
-                } catch (e) {
-                  console.log(`  FAILED: ${cardName} — ${e.message}`);
-                }
-              }
-
-              if (anyAdded) {
-                fs.writeFileSync('assets-mobile.js', assetsContent);
-              }
-
-              // Remove the pending file
-              fs.unlinkSync('PENDING_IMAGES.json');
-
-              // Commit changes
-              execSync('git config user.email "action@kombat-war.local"');
-              execSync('git config user.name "Kombat-War Action"');
-              execSync('git add assets-mobile.js');
+            for (const entry of pending) {
+              const { varName, url, cardName } = entry;
+              console.log(`Downloading image for ${cardName}: ${url}`);
               try {
-                execSync('git rm --cached PENDING_IMAGES.json 2>/dev/null || true');
-                execSync('git add -u');
-                execSync('git commit -m "Process card images [skip ci]"');
-                execSync(`git push origin ${branch}`);
+                const b64 = execSync(`curl -sL --max-time 30 "${url}" | base64 -w 0`, { maxBuffer: 20 * 1024 * 1024 }).toString().trim();
+                if (!b64 || b64.length < 100) {
+                  console.log(`  SKIP: empty or too small for ${cardName}`);
+                  continue;
+                }
+                const ext = url.split('.').pop().split('?')[0].toLowerCase();
+                const mime = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+                assetsContent += `\nwindow.${varName} = "data:${mime};base64,${b64}";\n`;
+                anyAdded = true;
+                console.log(`  OK: ${varName} added (${Math.round(b64.length / 1024)}kb)`);
               } catch (e) {
-                console.log('Nothing to commit or push failed:', e.message);
+                console.log(`  FAILED: ${cardName} — ${e.message}`);
               }
             }
 
-            // Create PR using PAT (Actions token is blocked from creating PRs)
-            const pat = process.env.KOMBAT_WAR_PAT;
-            const { Octokit } = require('@octokit/rest');
-            const patClient = new Octokit({ auth: pat });
+            if (anyAdded) {
+              fs.writeFileSync('assets-mobile.js', assetsContent);
+            }
 
-            const { data: prs } = await patClient.rest.pulls.list({
+            fs.unlinkSync('PENDING_IMAGES.json');
+
+            execSync('git config user.email "action@kombat-war.local"');
+            execSync('git config user.name "Kombat-War Action"');
+            execSync('git add assets-mobile.js');
+            try {
+              execSync('git rm --cached PENDING_IMAGES.json 2>/dev/null || true');
+              execSync('git add -u');
+              execSync('git commit -m "Process card images [skip ci]"');
+              execSync(`git push origin ${branch}`);
+            } catch (e) {
+              console.log('Nothing to commit or push failed:', e.message);
+            }
+
+      - name: Create PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.KOMBAT_WAR_PAT }}
+          script: |
+            const { execSync } = require('child_process');
+            const branch = context.ref.replace('refs/heads/', '');
+
+            const { data: prs } = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: `${context.repo.owner}:${branch}`,
@@ -94,7 +85,7 @@ jobs:
                 body = execSync('tail -60 PATCH_NOTES.md').toString();
               } catch(e) {}
 
-              await patClient.rest.pulls.create({
+              await github.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: `Monthly update - ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}`,
