@@ -1,0 +1,22 @@
+[
+  {
+    "cardName": "Baba Yaga Vampire",
+    "varName": "IMAGE_BABA_YAGA_VAMPIRE",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Drone_R18,_Ukraine.jpg"
+  },
+  {
+    "cardName": "FAB-500 UMPK",
+    "varName": "IMAGE_FAB_500_UMPK",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/FAB-500T_with_a_UMPK_kit.png"
+  },
+  {
+    "cardName": "2S22 Bohdana",
+    "varName": "IMAGE_2S22_BOHDANA",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2S22_Bohdana_SPH,_Kyiv_2018,_33.jpg"
+  },
+  {
+    "cardName": "Kh-101",
+    "varName": "IMAGE_KH_101",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Russian_Kh-101_missile_shot_in_Vinnytsia_Oblast,_2023-01-26_(01).jpg"
+  }
+]

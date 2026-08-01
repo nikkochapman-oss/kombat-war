@@ -1,5 +1,77 @@
 # Kombat-War Patch Notes
 
+## [August 2026] — v1.3
+
+### New Cards (5 assets added)
+
+Deck is now 36 unique cards (26 RU, 9 UA, 2 BOTH — each game deals 2×36=72 shuffled, 26 per player):
+
+- **Baba Yaga Vampire** (UA, rank 5, Heavy Strike Hexacopter UAV) — Ukraine's most prolific battlefield drone of 2025; 2.5M confirmed combat missions (RNBO.gov.ua). Six-rotor platform carrying grenades, mines, and mortar bombs.
+  - Stats: fp:70 def:12 spd:65 rng:42 tec:72
+  - Image URL: Wikimedia Commons — `Drone_R18,_Ukraine.jpg` (CC BY 4.0, АрміяІнформ)
+
+- **FAB-500 UMPK** (RU, rank 11, Precision Glide Bomb System) — Russia's primary ground-attack weapon of 2024–2025; ~3,500/month deployed from Su-34s. UMPK kit converts Soviet FAB-500 dumb bomb into 60–70 km GPS glide weapon.
+  - Stats: fp:92 def:5 spd:75 rng:72 tec:80
+  - Image URL: Wikimedia Commons — `FAB-500T_with_a_UMPK_kit.png` (Russian MoD via Commons)
+
+- **2S22 Bohdana** (UA, rank 8, Self-Propelled 155mm Howitzer) — Ukraine's domestic 155mm SPH on KrAZ truck; 154 produced in 2024 (Zelensky statement Dec 2024). Fires NATO-standard and GPS-guided shells to 60+ km.
+  - Stats: fp:78 def:45 spd:55 rng:72 tec:68
+  - Image URL: Wikimedia Commons — `2S22_Bohdana_SPH,_Kyiv_2018,_33.jpg` (CC BY-SA 4.0, VoidWanderer)
+
+- **Magura V5** (UA, rank 9, Autonomous Naval Strike Drone) — First naval drone in combat history to sink enemy warships (Ivanovets corvette, Tsezar Kunikov landing ship, Feb 2024). Forced Russian Black Sea Fleet out of Crimean ports. Range 833 km, 320 kg payload.
+  - Stats: fp:82 def:8 spd:70 rng:85 tec:88
+  - Image: DEFERRED — no verified Wikimedia Commons photo URL found; type fallback (navy) displays until next cycle.
+
+- **Kh-101** (RU, rank 12, Air-Launched Strategic Cruise Missile) — Russia's most-fired long-range weapon; 1,000+ launched from Tu-95MS/Tu-160 bombers. Primary source of Ukrainian infrastructure strikes far exceeding Kinzhal/Zircon usage by volume.
+  - Stats: fp:88 def:20 spd:58 rng:93 tec:85
+  - Image URL: Wikimedia Commons — `Russian_Kh-101_missile_shot_in_Vinnytsia_Oblast,_2023-01-26_(01).jpg` (CC BY 4.0)
+
+### Improvements (from Critic Feedback — July 2026 Report)
+
+**Critical fixes:**
+
+- **WarHammer / Colonel Kovacs — Dynamic deck log string:** `game.js:528` changed from hardcoded `"26 combat units"` to `Deck: ${MILITARY_ASSETS.length} unique assets — ${userDeck.length} units deployed per commander.` Will auto-update as cards are added each cycle.
+
+- **Casual Cleo / Colonel Kovacs — Typo fix:** `"Colateral Clash!"` → `"Collateral Clash!"` in `game.js:746` logMessage. Was the most visible in-game string with a spelling error.
+
+- **UX Vera — Selector mode touch affordance:** `renderCard()` now adds class `needs-selection` to the stats list and renders `▶ TAP A STAT TO BATTLE` caption when `isInteractive` is true. CSS adds pulsing left-border animation on stat rows — visible on touchscreens without hover events. Implements item 7 (high-priority item from July 2026 report).
+
+- **UX Vera / Casual Cleo — Mobile card description font-size:** `≤600px` breakpoint raised from `0.62rem` (≈9.9px, fails WCAG AA) to `0.75rem` (≈12px). Also expanded height from `34px` to `38px` to allow readable clip point.
+
+- **Colonel Kovacs / WarHammer — AI selection behaviour:** `aiSelectStat()` replaced greedy-max with weighted random (65% top stat / 35% second-best). Game is now non-trivially adversarial after early rounds. Also added `"RED FORCE SELECTING..."` banner text before the 1,000ms delay so users see activity, not a freeze. Implements items 16 and 17.
+
+- **Colonel Kovacs — Patriot PAC-3 rank promotion:** Rank raised `11 → 14` (Ace). The May 2023 Kinzhal intercept is the single most-documented combat achievement of the war's air-defense dimension. Ukraine now has a rank-14 (Ace) card. Implements item 11 (high-priority).
+
+- **Colonel Kovacs — Bayraktar TB2 lore accuracy:** `"struck Russia's patrol boat Vasily Bykov near Snake Island"` → `"struck and damaged Russia's patrol boat Vasily Bykov during the Snake Island operation"`. The Vasily Bykov escaped under smoke cover; "damaged but survived" is the confirmed record. Implements item 14 (high-priority).
+
+- **Colonel Kovacs — T-80BVM speed spec alignment:** Spec field `"speed: 70 km/h"` changed to `"67-70 km/h (road/cross-terrain)"` to bridge the gap with game stat `spd: 68`. Implements item 24 (nice-to-have).
+
+- **UX Vera / Casual Cleo — Inter-round standby text:** `prepareNextRound()` now sets `"STANDBY..."` on the announcement banner immediately (before timeout fires), so the screen is never blank and silent. Implements part of item 13.
+
+- **UX Vera / Casual Cleo — Round transition timeout:** Changed `4500ms → 2500ms` in `prepareNextRound()`. The 4.5-second blank freeze was consistently reported as the top mobile usability problem across two critic cycles. Implements item 13.
+
+- **UX Vera — Country bar font-size:** `.card-country-bar` font-size raised `0.55rem → 0.7rem` globally. Previous size was below any accessible threshold (~8.8px). Implements item from UX Vera accessibility notes.
+
+### Deferred Images
+
+- **Magura V5**: No verified Wikimedia Commons direct photo URL found. Ukrainian government release photos exist but lack a confirmed HTTPS Commons FilePath. Will retry next cycle with direct Commons category browsing.
+
+### Skipped Feedback
+
+- **WAR round stat selection (game.js:686 `|| isWarRound`):** Requires editing `resolveRound()` which is an explicitly protected game logic function. Skipped — flag for future cycle where game logic changes are in scope.
+- **"How to Play" first-run modal (item 12):** Multi-component feature (HTML modal + JS state + CSS). Not straightforward one-liner; deferred.
+- **Player identity assignment (item 15):** Requires game state + HTML panel changes; deferred.
+- **Combat log dossier links (item 22):** Requires DOM event manipulation tied to tab switching; deferred.
+- **Oryx Confirmed badge (item 25):** Requires HTML/CSS additions to card template; deferred.
+- **Scale note in stats panel (item 23):** Design decision — deferred pending layout review.
+
+### Known Issues
+
+- Magura V5 and Patriot PAC-3 cards lack base64 photos in assets-mobile.js; type-fallback images display until PENDING_IMAGES.json is extended (Magura V5) or next GitHub Action run re-downloads (Patriot PAC-3 image URL unchanged from v1.2).
+- Deck is now 36 unique assets × 2 = 72 total cards; each player still receives 26 (slice fixed at [0,26] / [26,52]), leaving 20 cards undealt per game. Adds significant shuffle-based replayability — no game sees the full deck.
+
+---
+
 ## [July 2026] — v1.2
 
 ### New Cards (5 Ukrainian assets added)
