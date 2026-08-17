@@ -131,7 +131,7 @@ const MILITARY_ASSETS = [
         description: "A modernized Russian battle tank powered by a gas-turbine engine — similar to a jet engine — instead of diesel, allowing reliable cold-weather starts and higher speed bursts suited to Ukrainian winters. Gas-turbine main battle tank optimized for sub-zero ignition, featuring high tactical mobility, Relikt reactive shields, and advanced digital fire-control arrays.",
         stats: { fp: 84, def: 82, spd: 68, rng: 56, tec: 77 },
         nato: "T-80BVM",
-        specs: { weight: "46 tons", engine: "GTD-1250 Gas Turbine (1250 hp)", speed: "70 km/h", armaments: "125mm Smoothbore Gun" },
+        specs: { weight: "46 tons", engine: "GTD-1250 Gas Turbine (1250 hp)", speed: "67-70 km/h (road/cross-terrain)", armaments: "125mm Smoothbore Gun" },
         citation: "IISS Military Balance 2024, Armoured Formations, p. 197"
     },
     {
@@ -293,7 +293,7 @@ const MILITARY_ASSETS = [
         name: "Bayraktar TB2",
         country: "UA",
         type: "Medium-Altitude Long-Endurance Strike UAV",
-        description: "A Turkish-made armed drone flown by Ukraine that became a symbol of the war — it hovers up to 27 hours above the battlefield and fires precision-guided bombs at tanks, ships, and artillery below. In the early weeks of the 2022 invasion it destroyed hundreds of Russian vehicles and struck Russia's patrol boat Vasily Bykov near Snake Island. Medium-altitude long-endurance unmanned combat aerial vehicle carrying four MAM-L/C laser-guided bombs, operated via encrypted datalink with electro-optical/infrared targeting.",
+        description: "A Turkish-made armed drone flown by Ukraine that became a symbol of the war — it hovers up to 27 hours above the battlefield and fires precision-guided bombs at tanks, ships, and artillery below. In the early weeks of the 2022 invasion it destroyed hundreds of Russian vehicles and struck and damaged Russia's patrol boat Vasily Bykov during the Snake Island operation. Medium-altitude long-endurance unmanned combat aerial vehicle carrying four MAM-L/C laser-guided bombs, operated via encrypted datalink with electro-optical/infrared targeting.",
         stats: { fp: 62, def: 22, spd: 68, rng: 78, tec: 88 },
         nato: "N/A",
         specs: { weight: "650 kg MTOW", speed: "222 km/h", endurance: "27 hours", payload: "4× MAM-L/C guided bombs" },
@@ -333,7 +333,7 @@ const MILITARY_ASSETS = [
         citation: "IISS Military Balance 2024, Ukrainian Ground Forces Equipment, p. 108"
     },
     {
-        rank: 11,
+        rank: 14,
         name: "Patriot PAC-3",
         country: "UA",
         type: "Long-Range Air & Missile Defense System",
@@ -342,6 +342,61 @@ const MILITARY_ASSETS = [
         nato: "N/A",
         specs: { interceptors: "16× PAC-3 MSE Hit-to-Kill", range: "60+ km (ballistic), 150 km (aircraft)", radar: "AN/MPQ-65 Phased Array", crew: "90 per battery" },
         citation: "Congressional Research Service — Patriot Missile Systems for Ukraine, 2024"
+    },
+    {
+        rank: 5,
+        name: "Baba Yaga Vampire",
+        country: "UA",
+        type: "Heavy Strike Hexacopter UAV",
+        description: "Ukraine's most prolific battlefield drone of 2025 — a six-rotor heavy-lift hexacopter nicknamed 'Baba Yaga' after a fearsome witch of Slavic folklore, built by the Ukrainian company SkyFall. It carries grenades, mortar bombs, and anti-tank mines, dropping them precisely into Russian trenches and vehicles at night using thermal cameras. Ukrainian forces logged 2.5 million documented combat missions with Vampire-class drones in 2025, more than any other weapon platform in the war.",
+        stats: { fp: 70, def: 12, spd: 65, rng: 42, tec: 72 },
+        nato: "N/A",
+        specs: { weight: "~30 kg MTOW", payload: "Up to 15 kg bombs/mines", speed: "65 km/h", range: "Up to 60 km" },
+        citation: "RNBO Ukraine — Vampire Drone 2025 Combat Operations Summary; Forbes, Dec 2025; NV.ua, Dec 2025"
+    },
+    {
+        rank: 11,
+        name: "FAB-500 UMPK",
+        country: "RU",
+        type: "Precision Glide Bomb System",
+        description: "Russia's most-used ground-attack weapon of 2024–2025 — a Soviet-era 500 kg iron bomb fitted with a cheap GPS navigation module and folding wings called the UMPK kit, transforming a dumb gravity bomb into a precision glide weapon. Dropped by Su-34 strike jets (also in this deck) from 60–70 km away — safely beyond most Ukrainian air defense range — Russia deploys approximately 3,500 UMPK-equipped bombs per month. The kit costs a fraction of Western precision munitions, making it one of the most cost-effective battlefield weapons of the modern era.",
+        stats: { fp: 92, def: 5, spd: 75, rng: 72, tec: 80 },
+        nato: "N/A",
+        specs: { weight: "~640 kg total", warhead: "500 kg HE blast/penetrating", range: "60–70 km glide range", guidance: "GLONASS GPS + inertial navigation" },
+        citation: "CSIS Missile Threat — UMPK Glide Bomb Profile, 2024; The Aviationist, Nov 2024; Kyiv Independent, 2025"
+    },
+    {
+        rank: 8,
+        name: "2S22 Bohdana",
+        country: "UA",
+        type: "Self-Propelled 155mm Howitzer",
+        description: "Ukraine's proudest domestic artillery achievement — a 155mm self-propelled howitzer built entirely in Ukrainian factories on a six-wheel-drive KrAZ truck chassis, firing NATO-standard shells up to 60 km. Unlike Soviet-era artillery, the Bohdana can fire Western GPS-guided shells for precision strikes. Ukraine produced 154 Bohdana howitzers in 2024 alone — the strongest evidence that Ukrainian defence manufacturing survived and expanded under wartime conditions. Named after the Ukrainian word for 'gift of God.'",
+        stats: { fp: 78, def: 45, spd: 55, rng: 72, tec: 68 },
+        nato: "N/A",
+        specs: { weight: "28 tons", armaments: "155mm/52 caliber howitzer", speed: "80 km/h road", range: "42–60 km (GPS shells: 70+ km)" },
+        citation: "Army Recognition — Ukraine 2S22 Bohdana SPH Production Summary, 2024; Zelensky statement, Dec 2024"
+    },
+    {
+        rank: 9,
+        name: "Magura V5",
+        country: "UA",
+        type: "Autonomous Naval Strike Drone",
+        description: "An 18-foot unmanned speedboat packed with 320 kg of explosives — Ukraine's sea drone programme that single-handedly forced Russia's Black Sea Fleet to withdraw from Crimean ports. In February 2024, Magura V5s became the first naval drones in combat history to sink enemy warships, destroying a Russian guided-missile corvette and a 4,000-ton landing ship. Travelling up to 833 km at 42 knots, these drones conduct autonomous strike missions using onboard cameras. USNI Proceedings called the programme 'a Black Sea equaliser.'",
+        stats: { fp: 82, def: 8, spd: 70, rng: 85, tec: 88 },
+        nato: "N/A",
+        specs: { weight: "1,100 kg loaded", payload: "320 kg explosive warhead", speed: "42 knots (78 km/h)", range: "833 km" },
+        citation: "USNI Proceedings — Ukraine's Magura Naval Drones: Black Sea Equalizers, Sep 2025; Army Recognition, Aug 2024"
+    },
+    {
+        rank: 12,
+        name: "Kh-101",
+        country: "RU",
+        type: "Air-Launched Strategic Cruise Missile",
+        description: "Russia's most-fired long-range weapon of the entire war — a stealthy air-launched cruise missile carried by Tu-95MS 'Bear' and Tu-160 'Blackjack' strategic bombers, fired over 1,000 times against Ukrainian cities, power plants, and infrastructure since 2022. While Kinzhal and Zircon receive media attention, the Kh-101 is statistically responsible for the bulk of Russian long-range infrastructure destruction in Ukraine. It flies terrain-hugging routes at subsonic speed on a pre-programmed path, making it difficult to intercept without radar coverage along the entire flight path.",
+        stats: { fp: 88, def: 20, spd: 58, rng: 93, tec: 85 },
+        nato: "AS-23A Kodiak",
+        specs: { weight: "2,400 kg", warhead: "450 kg HE penetrating", speed: "Mach 0.6–0.78 (subsonic)", range: "2,500–3,500 km" },
+        citation: "CSIS Missile Threat — Kh-101/Kh-102 Air-Launched Cruise Missile Profile, 2024; GlobalSecurity.org"
     }
 ];
 
@@ -524,7 +579,7 @@ function startNewGame() {
     
     // Clear logs
     elCombatLog.innerHTML = `<div class="log-entry system">> Kombat-War Tactical Engine loaded. Shuffling and preparing deck.</div>`;
-    logMessage(`Decks initialized. 26 combat units deployed to each commander.`, 'system');
+    logMessage(`Deck: ${MILITARY_ASSETS.length} unique assets — ${userDeck.length} units deployed per commander.`, 'system');
     logMessage(`${whoseTurn === 'user' ? 'PLAYER_COM_01' : 'COM_TARGET_RED'} has tactical initiative.`, 'system');
     
     updateHUD();
@@ -622,29 +677,30 @@ function handleDraw() {
 }
 
 function aiSelectStat() {
-    // AI picks its highest stat
-    let bestStat = 'fp';
-    let maxVal = activeAiCard.stats.fp;
-    
-    for (const stat in activeAiCard.stats) {
-        if (activeAiCard.stats[stat] > maxVal) {
-            maxVal = activeAiCard.stats[stat];
-            bestStat = stat;
-        }
+    // Build sorted stat list (highest first); pick top stat 65%, second stat 35% for non-trivial adversarial play
+    const sorted = Object.entries(activeAiCard.stats).sort((a, b) => b[1] - a[1]);
+    let bestStat;
+    if (sorted.length >= 2 && Math.random() < 0.35) {
+        bestStat = sorted[1][0];
+    } else {
+        bestStat = sorted[0][0];
     }
-    
+
     selectedStat = bestStat;
-    
+
+    // Signal AI is deliberating before revealing the pick
+    elBattleAnnouncement.innerText = "RED FORCE SELECTING...";
+
     elSelectedStatBanner.classList.remove('hidden');
     elActiveStatName.innerText = STAT_MAPPINGS[selectedStat];
-    
-    logMessage(`COM_TARGET_RED drew ${activeAiCard.name} and selected ${STAT_MAPPINGS[selectedStat].toUpperCase()} (${maxVal}).`, 'ai');
-    
+
+    logMessage(`COM_TARGET_RED drew ${activeAiCard.name} and selected ${STAT_MAPPINGS[selectedStat].toUpperCase()} (${activeAiCard.stats[selectedStat]}).`, 'ai');
+
     // Highlight the stat on the AI card
     setTimeout(() => {
         const row = elAiClashSlot.querySelector(`[data-stat="${selectedStat}"]`);
         if (row) row.classList.add('selected-battle-stat');
-        
+
         // Show user card
         logMessage(`You deployed ${activeUserCard.name}. Comparing attributes...`, 'user');
         resolveRound();
@@ -743,7 +799,7 @@ function resolveRound() {
         AudioController.war();
         
         elBattleAnnouncement.innerText = "⚡ COLLATERAL CLASH: WAR! ⚡";
-        logMessage(`Colateral Clash! ${activeUserCard.name} and ${activeAiCard.name} tied (${winReason}). Engaging tactical escalation!`, 'tie');
+        logMessage(`Collateral Clash! ${activeUserCard.name} and ${activeAiCard.name} tied (${winReason}). Engaging tactical escalation!`, 'tie');
         
         // Check if players have enough cards for War (need at least 4: 3 facedown + 1 battle card)
         if (userDeck.length < 4 || aiDeck.length < 4) {
@@ -769,7 +825,9 @@ function prepareNextRound() {
     isDrawPhase = true;
     selectedStat = null;
     isProcessing = false; // Reset lock before allowing next draw
-    
+
+    elBattleAnnouncement.innerText = "STANDBY...";
+
     roundTimeoutId = setTimeout(() => {
         if (checkGameOver()) return;
 
@@ -781,7 +839,7 @@ function prepareNextRound() {
         elUserClashSlot.innerHTML = `<div class="slot-placeholder">DEPLOYING CARD</div>`;
         elAiClashSlot.innerHTML = `<div class="slot-placeholder">DEPLOYING CARD</div>`;
         updateHUD();
-    }, 4500);
+    }, 2500);
 }
 
 // ── WAR MODE RESOLUTION ──
@@ -923,6 +981,9 @@ function renderCard(card, container, isFaceDown, isInteractive, onStatClick) {
     const countryLabels = { RU: 'RUSSIA', UA: 'UKRAINE', BOTH: 'RUSSIA · UKRAINE' };
     const flagHTML = card.country ? `<span class="card-country-flag" title="${countryLabels[card.country] ?? ''}">${countryFlags[card.country] ?? ''}</span>` : '';
 
+    const interactiveCls = (isInteractive && onStatClick) ? ' needs-selection' : '';
+    const tapHint = (isInteractive && onStatClick) ? `<div class="tap-stat-hint">&#9654; TAP A STAT TO BATTLE</div>` : '';
+
     cardEl.innerHTML = `
         <div class="card-header">
             <span class="card-title">${card.name}</span>
@@ -934,7 +995,8 @@ function renderCard(card, container, isFaceDown, isInteractive, onStatClick) {
             <div class="card-overlay-tag">// NATO: ${card.nato}</div>
         </div>
         <div class="card-description">${card.description}</div>
-        <div class="card-stats-list">${statsHTML}</div>
+        <div class="card-stats-list${interactiveCls}">${statsHTML}</div>
+        ${tapHint}
     `;
     
     // Add Click listener to stats rows if interactive

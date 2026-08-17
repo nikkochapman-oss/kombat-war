@@ -674,7 +674,7 @@ body {
     gap: 5px;
     padding: 2px 8px;
     font-family: var(--font-header);
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     letter-spacing: 0.08em;
     font-weight: 700;
     border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -775,6 +775,34 @@ body {
 .selector-active .card-stat-row:hover {
     background: rgba(255, 255, 255, 0.08);
     color: hsl(var(--color-secondary));
+}
+
+/* Tap affordance — pulsing left border when stat selection is required (touchscreen-visible) */
+.needs-selection .card-stat-row {
+    border-left: 2px solid hsla(var(--color-secondary), 0.5);
+    padding-left: 3px;
+    animation: stat-row-pulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes stat-row-pulse {
+    0% { border-left-color: hsla(var(--color-secondary), 0.3); }
+    100% { border-left-color: hsl(var(--color-secondary)); }
+}
+
+/* Caption shown below stats when user must tap to choose */
+.tap-stat-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: hsl(var(--color-secondary));
+    text-align: center;
+    padding: 3px 10px 4px;
+    letter-spacing: 1px;
+    animation: hint-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes hint-pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
 /* selected-battle-stat applies globally so AI card highlights even when AI panel lacks selector-active */
@@ -1492,7 +1520,7 @@ body {
     .card-badge { font-size: 0.75rem; }
     .card-img-container { height: 130px; }
     .card-image { filter: sepia(0.35) contrast(1.1) brightness(1.05); }
-    .card-description { height: 34px; font-size: 0.62rem; }
+    .card-description { height: 38px; font-size: 0.75rem; }
     .card-stats-list { gap: 3px; padding: 5px 8px; }
     .card-stat-row { font-size: 0.67rem; padding: 2px 4px; }
     .interactive-card .card-stat-row {
