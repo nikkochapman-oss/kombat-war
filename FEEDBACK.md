@@ -1,8 +1,8 @@
-# Kombat-War Critic Report — July 2026
+# Kombat-War Critic Report — August 2026
 
 ## Mission Alignment Check
 
-Significant progress since the previous report: the Game Updater has added five Ukrainian cards (Bayraktar TB2, HIMARS M142, R-360 Neptune, T-64BV, Patriot PAC-3), corrected the title tag, fixed Geran-2 lore and warhead weight, corrected the TOS-1A range stat, and reclassified BMP-2M Berezhok to Russia-only. These were all critical items — good execution. The game is now more educationally honest. The remaining structural problem is the 24:5 Russian-to-Ukrainian card ratio, which still teaches a Russian-centric view of the war. More urgently, the research findings for 2025–2026 reveal three categories of glaring absences: Russia's FAB/UMPK glide bomb family (now Russia's primary ground-attack weapon), Ukraine's Baba Yaga/Vampire heavy hexacopter drone (2.5 million combat missions in 2025 alone), and Ukraine's Magura/Sea Baby naval USVs (confirmed ship kills). Two lingering code bugs — a stale "26 combat units" log string and a "Colateral Clash" typo — should be one-line fixes.
+Kombat-War delivers on its core promise in several compelling areas: the lore text is well-researched and layperson-accessible, the Glossary Dossier with its citation blocks is a standout educational feature, and the mobile CSS for portrait phones is genuinely solid. However, the game has a critical structural imbalance — 26 of 36 assets are Russian while Ukraine's deck stands at 8 cards (22%) — that directly undercuts the stated mission of balanced education. A newcomer who plays 20 rounds will learn roughly 3.25× more about Russian equipment than Ukrainian equipment. The most jarring omission is the F-16 Fighting Falcon, which has been operational with Ukrainian Air Force squadrons since summer 2024 and represents the most publicly visible Western transfer of the war. Additionally, one confirmed factual error in the R-360 Neptune lore overstates its historical significance in a verifiable and correctable way.
 
 ---
 
@@ -10,142 +10,114 @@ Significant progress since the previous report: the Game Updater has added five 
 
 ### WarHammer (Strategy Gamer)
 
-**Classic mode is still a coin-flip machine.** Two copies of each of 31 assets, shuffled randomly. The only decisions are to play (mandatory) or trigger WAR (mandatory when tied). This is structurally equivalent to vanilla War, a children's card game. Experienced players recognize this in one draw. The excellent lore adds flavour but not mechanics. Classic mode's value is purely casual and educational — which is legitimate, but should be labelled honestly: "QUICK PLAY (LUCK-BASED)" rather than "CLASSIC RANK WAR (2 to ACE)" which implies strategic weight.
+Let me be direct: Classic Mode is slot-machine Gwent. There is zero decision-making — press DEPLOY ASSETS, see a rank, win or lose. The rank system generates constant high-value ties because cards are paired at every tier (two Rank 2s, two Rank 4s, two Rank 7s, two Rank 8s across Russia), artificially flooding the game with WAR events. That is not tension — that is RNG with military aesthetics.
 
-**Selector mode has genuine depth but one exploit breaks it.** `aiSelectStat()` (game.js lines 624–651) always picks the single maximum stat. After three rounds, a player knows the AI's move before it plays: see your opponent's card revealed, note its top stat, pick any other stat. The AI becomes trivially beatable by round 5. Replace the greedy pick with weighted probability: top stat 65%, second stat 35%. Cost: one line of code. Payoff: the game becomes non-trivially adversarial throughout.
+**Dominant cards in Selector mode (by combined stat weight):**
+- Zircon: fp:100, spd:100, tec:98, rng:95 = 393 total. Virtually unbeatable on any stat.
+- Kinzhal: fp:98, spd:100, rng:98, tec:96 = 392. Tied for top.
+- S-400: def:94, tec:95, rng:96 — wins 3 of 5 stats against almost everything in the deck.
+- Patriot PAC-3 (tec:95, rng:90) is the only Ukrainian card that competes with Russia's top tier. Ukraine has one ACE-rank card; Russia has two (Zircon + Kinzhal) plus three KING-rank cards vs Ukraine's one (Neptune).
 
-**Dominant cards, by name:**
-- **Zircon** (fp:100, spd:100, rng:95, tec:98, rank 14): wins on four of five stats against every card in the deck unconditionally. Its only weakness is DEF:42. In Selector mode, a player holding Zircon wins any contest except a deliberate DEF challenge. No strategic tension.
-- **Kinzhal** (fp:98, spd:100, rng:98, tec:96, rank 14): functionally tied with Zircon.
-- **S-400** (rng:96, tec:95, def:94, rank 13): dominates three stat categories.
-- **No Ukrainian Ace**: All rank 14 cards are Russian. In Classic mode Ukraine can never beat a rank-14 card outright. The Patriot PAC-3 intercepted Kinzhal in May 2023 — the single most documented event in the war's air-defense history — but PAC-3 is rank 11 to Kinzhal's rank 14. This is historically misleading and mechanically frustrating.
+**Stat scaling inconsistency:**
+- TOS-1A Range:7 is the sole single-digit value in the entire deck. If 0–100 represents a relative battlefield scale, a value of 7 looks like a null/error — especially when Geran-2 sits at Range:90. The real TOS-1A fires to 6 km, which is "very short range" — but the stat should communicate that as ~15–18 on the scale, not 7.
+- Yasen-M Speed:72 equals the Mi-28N Night Hunter helicopter (also Speed:72). A nuclear submarine should be Speed:42–48 at most in any relative tactical mobility framework.
+- FPV Fiber-Optic (rng:30) and FPV Ghoul (rng:25) are penalised on two of five stats simultaneously (Range + Defense), making them near-unplayable in Selector mode once the AI — which picks its best stat 65% of the time — learns to exploit RANGE or DEFENSE.
 
-**Stat scaling remains internally incoherent:**
-- BTR-82A (wheeled APC, road speed 80 km/h) → spd:80. Ka-52 (helicopter, max 300 km/h) → spd:80. A truck and a helicopter share the same speed score. Speed is not measuring speed; it's measuring something else, unlabelled.
-- MT-LB spd:61 matches the vehicle's literal km/h. Every other card uses an abstract 0–100 scale. This card is speaking a different language.
-- The TOS-1A rng fix (now rng:7) is correct and appreciated — keep it. Add a tooltip or footnote explaining RANGE is normalised across asset classes, not literal km.
+**AI decision quality:**
+The AI picks its best stat 65%, second-best 35% — deterministic and exploitable. There is no adaptation, no card memory, no bluffing. After ~5 rounds a human player learns to avoid FIREPOWER against Zircon and just waits for RANGE on the TOS-1A. A minimum improvement: track which two stats the human most frequently chose in the last five rounds and shift the AI's probability away from those.
 
-**WAR mechanic is the best dramatic moment and wastes it.** `resolveRound()` (game.js:686): `if (gameMode === 'classic' || isWarRound)` forces rank comparison during WAR even in Selector mode. The player who spent the whole game making clever stat choices has zero input during the highest-stakes round. Removing `|| isWarRound` is a one-line fix that makes the ruleset consistent and makes the WAR moment actually skilled.
-
-**One genuine bright spot:** The rank-to-rarity mapping (Common/Rare/Epic/Legendary with glowing borders) is excellent TCG craft. The visual system instantly communicates asset importance and creates the "oh no, my opponent just drew a Legendary" emotional beat that good card games run on. Keep this.
+**Missing depth mechanics:**
+No faction synergies, no counter-type logic, no "Intel" resource. The rank-14 hypersonic missile cards are mechanically invincible — there is no counter-system modelled. Suggested low-code addition: when a SAM-type card faces an aircraft or missile-type card, award a +12 DEFENSE and +8 RANGE bonus to the SAM to model its real function. This teaches combined-arms doctrine and creates meaningful decisions.
 
 ---
 
 ### Casual Cleo (First-Time Mobile Player)
 
-I replayed this session fresh. The addition of Ukrainian cards is an immediate improvement — when I drew the Bayraktar TB2 and read "became a symbol of the war" I actually had a framing for what I was looking at. The mission alignment is visibly better.
+I picked this up cold on my iPhone and was confused for the first 45 seconds. Here's what did and didn't land:
 
-**Still confusing in the first 60 seconds:**
-- Nothing tells me which player I am. "PLAYER_COM_01" vs "COM_TARGET_RED" — I have no idea who's who. When I win and see "Tactical Victory", I still don't know if I'm playing Ukraine or Russia or some abstract commander.
-- In Selector mode, my stat rows appear with no signal that they're interactive. The "SELECT BATTLE ATTRIBUTE" banner is small and easy to miss. I sat for 20 seconds before accidentally tapping a row. This is the highest-friction moment in the entire game.
-- The round auto-resets after 4.5 seconds. On iPhone during that wait, the screen looks frozen. I tried tapping three times, panicked, and hit "INITIALIZE DECK" twice. Added a "please wait..." visual cue or reduce to 2 seconds.
-- "COLLATERAL CLASH: WAR!" — note: I see this is *still* showing as "COLATERAL CLASH" in the code (one 'l' instead of two). Small typo, but it's the most dramatic moment in the game — worth fixing.
+**Jargon wall on first load:** The button says "INITIALIZE DECK." The dropdown says "ENGAGEMENT PROTOCOL." My player name is "PLAYER_COM_01" and the enemy is "COM_TARGET_RED." None of these communicate anything useful to a first-timer. "NEW GAME," "GAME MODE," "YOU," and "ENEMY" would be completely equivalent and work on first contact.
 
-**What now works well:**
-- Ukrainian card descriptions are educational. "Bayraktar TB2: it hovers up to 27 hours above the battlefield and fires precision-guided bombs at tanks, ships, and artillery below" — I understood that immediately. Same with Neptune: "Ukraine fired two at the Moskva, Russia's Black Sea Fleet flagship, on 13 April 2022, sinking the largest warship destroyed in combat since World War II." That sentence teaches me something real.
-- The CLASSIFIED DOSSIER tab is excellent. I'm now spending more time there than playing. I wish the game pointed me there during play.
+**No rules, anywhere.** I pressed DEPLOY ASSETS, two cards appeared, the left one said "Tactical Victory" — but I didn't know why. The combat log in tiny monospace at the bottom (85px tall on mobile, roughly 3 visible lines) told me, but it had already scrolled off. A single line overlaid on the losing card — "Your Rank 8 beat their Rank 6" — would make the game self-teaching within two rounds.
 
-**Still needs fixing on mobile:**
-- Card description font is 0.62rem at 375px (approximately 9.9px). This is below comfortable reading threshold. Minimum 0.75rem (12px).
-- The 3-line clamp on descriptions cuts the good sentence at exactly the wrong moment. The plain-English hook disappears on long cards.
-- The card image height at ≤600px is `height: 130px` — I can barely make out whether it's a tank or a helicopter. The sepia filter on a small, compressed image turns everything brown-grey.
-- No "How to Play" screen. A 3-step modal on first load would solve almost every confusion.
+**What confused me mid-game:**
+- "COLLATERAL CLASH: WAR!" appeared when two cards tied. I had no idea what was about to happen. One sentence — "Both cards tied! Drawing 3 face-down cards before the next battle" — would remove all the anxiety.
+- The CLASSIFIED DOSSIER tab took me three games to discover. Once I found it, the depth there was genuinely impressive — real photographs, spec sheets, citations. But there is no discovery nudge anywhere in the UI pointing toward it.
 
-**Did I learn something?** More than before, yes. The Bayraktar TB2, HIMARS, and Neptune cards genuinely taught me about Ukrainian capability. The game now feels like it has two sides rather than a Russian weapons catalogue. More Ukrainian additions would accelerate this.
+**What worked well:**
+- The stat bars (FIREPOWER / DEFENSE / SPEED / RANGE / TECH LEVEL) are immediately understandable — I didn't need anyone to explain them.
+- The real field photographs are genuinely cool. The sepia-filter makes them feel authentic. I learned what a Baba Yaga drone looks like after one round.
+- In Stat-Selector mode, the "TAP A STAT TO BATTLE" pulsing hint is clear and well-placed. That mode is more engaging and educational.
+- The full-width DEPLOY ASSETS button on mobile is a satisfying tap target. Action buttons are done right.
+
+**Bottom line:** I felt like I'd just opened a military intelligence app with no onboarding. The educational content is real and good — but a newcomer who doesn't find the Dossier tab leaves the game having learned almost nothing beyond "Russia has more stuff."
 
 ---
 
 ### Colonel Kovacs (Military Analyst)
 
-*Web research conducted for this review: Ukraine war new weapons 2025-2026 (United24 Media, GlobalSecurity, DefencePost); Ukraine FPV drone production results (RNBO.gov.ua); Oryx confirmed losses through 2025; Bohdana 2S22 production (Army Recognition, KMU.gov.ua); IRIS-T SLM deliveries (German MoD); FAB/UMPK glide bomb usage (Aviationist, EuroSD, National Interest); Magura V5/Sea Baby USV (USNI Proceedings, Kyiv Independent); Geran family variants (Forbes, Army Recognition); Su-57 combat operations (National Security Journal, Military Watch); Ukrainian Vampire/Baba Yaga drone (NV.ua, Forbes, Militarnyi); ATACMS confirmed strikes 2025.*
+*Cross-referenced against Oryx conflict monitor, IISS Military Balance 2024, Jane's platforms, and current reporting to August 2026.*
 
-**Mission alignment since last report:** The five added Ukrainian cards represent the right instinct. All five are well-cited, factually sound, and educationally strong — particularly Neptune's Moskva narrative. However, the Ukrainian card set now reflects the state of the war in approximately mid-2022 to early 2023. The 2024–2026 period — when Ukraine's domestic arms industry, FPV drone production, and naval campaign fundamentally changed the conflict — is entirely absent. The Russian side similarly misses its most-used current weapons.
+#### Confirmed Factual Errors
 
----
+**1. R-360 Neptune lore — Critical factual error:**
+The card states it caused "sinking the largest warship destroyed in combat since World War II." This is verifiably incorrect. The Argentine cruiser ARA General Belgrano (13,645 tonnes) was sunk by HMS Conqueror in the 1982 Falklands War. The Moskva (11,490 tonnes) is the largest warship sunk since the Belgrano — not since WWII. Suggested replacement text: *"the largest warship sunk in combat since the 1982 Falklands War, and the most strategically significant naval strike of the 21st century."*
 
-**Remaining factual issues:**
+**2. Pantsir-S1 weight specification:**
+The spec lists "30 tons." The wheeled Pantsir-S1 on the KamAZ/Ural-532361 8×8 chassis weighs approximately 20–22 tonnes combat-loaded. The 30-tonne figure conflates it with heavier tracked variants or the SA-19 Tunguska. Correct to "20–22 tons."
 
-**1. Hardcoded log string (game.js line 528): "26 combat units deployed to each commander."**
-MILITARY_ASSETS now contains 31 unique entries. Each player receives 31 cards, not 26. Fix: `\`${MILITARY_ASSETS.length} combat units deployed to each commander.\``
+**3. Mi-28N range specification:**
+The spec cites "Range: 450 km." This is the maximum ferry range. The Mi-28N's combat radius — the figure relevant to battlefield use — is approximately 200–240 km. Using ferry range alongside combat-oriented specs (Ka-52 uses ceiling and armament, not range) creates a misleading cross-card comparison. Either correct the value to combat radius or clearly label it "FERRY RANGE."
 
-**2. Typo in WAR announcement (game.js line 746): "Colateral Clash!"**
-Should be "Collateral Clash!" — one 'l' missing. Affects the most visible in-game text.
+#### Accuracy Issues (Medium Priority)
 
-**3. T-80BVM speed discrepancy.**
-Card specs state "speed: 70 km/h" but the game stat is `spd: 68`. Minor, but the specs box should match either the stat (change specs to "67–70 km/h cross-country") or the stat should be 70. These should agree.
+**4. Yasen-M Zircon note outdated:**
+The spec notes "Zircon integration planned." As of 2024–2025 reporting, the 3M22 Zircon has achieved integration with Yasen-M class submarines per multiple defence sources. Update to "Zircon integration confirmed (2024–2025 sea trials)."
 
-**4. Bayraktar TB2 lore: "struck Russia's patrol boat Vasily Bykov near Snake Island."**
-The Vasily Bykov was damaged but not sunk during the Snake Island operation — the ship escaped under smoke cover. Multiple open-source reports (including the Guardian and Reuters in May 2022) confirm the vessel was damaged but survived. Consider revising to "struck and damaged Russia's patrol boat Vasily Bykov during the Snake Island operation" to preserve accuracy.
+**5. Lancet-3 lore not updated to Lancet-3E:**
+The Lancet-3 entry is accurate for 2023–early 2024. As of mid-2025, the primary frontline variant is the Lancet-3E, featuring AI-assisted terminal guidance (confirmed by UNITED24 Media and Bulgarian Military reporting, July 2025). The TEC stat of 85 may be undervalued given the AI-guidance capability. Recommend updating lore and raising TEC to 88–90.
 
-**5. Patriot PAC-3 crew: "90 per battery" may overstate field deployments.**
-The US Army's official Patriot unit requirement is approximately 90 soldiers per battery for a full complement. Ukrainian batteries operate with reduced crews (training has been abbreviated). The stat is technically sourced but may mislead on Ukrainian operational context. Consider adding "(reduced Ukrainian complement)" qualifier or adjusting the spec.
+#### Major Missing Assets (Confirmed Deployed)
 
----
+**1. F-16 Fighting Falcon (UA) — Most significant omission.**
+Ukraine has been operating F-16s since summer 2024 with confirmed intercepts of Russian cruise missiles and air-to-air engagements. Every major defence outlet — IISS, Jane's, Oryx — tracks F-16 as a primary Ukrainian capability. Its absence leaves Ukraine without a single fixed-wing combat aircraft in the deck. Suggested rank: 12–13. This is not optional for a game claiming to teach Ukrainian military assets.
 
-**Missing critical assets confirmed deployed in 2024–2026:**
+**2. IRIS-T SLM (UA) — Active air defense gap.**
+Germany has delivered 10+ IRIS-T SLM batteries to Ukraine with a further 18 ordered as of 2026. Defence reporting cites near-100% intercept rates across more than 250 engagements. The IRIS-T is more operationally active in 2025–2026 media coverage than the Patriot PAC-3. Its absence while Patriot is included omits Germany's primary contribution and the most effective medium-range system in Ukraine's arsenal. Suggested rank: 10–11.
 
-| Asset | Side | Why It Matters Now |
-|---|---|---|
-| **FAB-500 / FAB-1500 / FAB-3000 + UMPK glide bomb kit** | RU | Russia's single most-used ground-attack weapon of 2024–2025. Thousands dropped monthly by Su-34s (already in the game). The Su-34 card describes "UMPK satellite-guided precision glide bombs" — the bomb itself is the key educational object and is absent. FAB-500 (500 kg), FAB-1500 (1,500 kg), and FAB-3000 (3,000 kg, first confirmed combat use June 2024) are three distinct educational opportunities. |
-| **Baba Yaga / Vampire (heavy hexacopter drone)** | UA | Confirmed 2.5 million combat missions in 2025 (RNBO.gov.ua). This is the single highest-tempo Ukrainian weapon in the war as of 2025. Visually distinct from FPV Ghoul — six rotors, 15 kg payload, mine-laying and trench-bombing role. Its absence while two Russian-equivalent FPV types exist is a visible asymmetry. |
-| **Bohdana 2S22 self-propelled howitzer** | UA | Ukraine's primary domestically-produced 155mm SPH. 154 units produced in 2024; 40 units/month by October 2024. At least three variants fielded (Bohdana 5.0, Bohdana-B towed, Bohdana 6.0 for international co-production). This is Ukraine's most significant defence-industrial achievement of the war and is entirely absent from a game claiming to teach Ukrainian assets. |
-| **IRIS-T SLM** | UA | Germany's primary air defense contribution. ~10 systems delivered as of 2025; 99% claimed intercept rate per Ukrainian MoD March 2025. Ukraine ordered 18 additional systems in early 2026. Operationally distinct from Patriot (medium vs long range). |
-| **Magura V5 / Sea Baby USV** | UA | Ukraine's uncrewed surface vehicle (USV) programme confirmed sinking of Russian landing craft Caesar Kunikov (February 2024), striking the Kerch Bridge approaches, and conducting strikes on Russian Black Sea Fleet ports. Sea Baby USV range exceeds 1,500 km. The USNI Proceedings (September 2025) called Magura "a Black Sea equaliser." The entire Ukrainian naval drone campaign — one of the war's most innovative developments — has no representation in the game. |
-| **Geran-3 / Geran-4 (jet-powered variants)** | RU | Geran-3 uses a Chinese Telefly JT80 turbojet (confirmed by Forbes September 2025), reaching 300–370 km/h — nearly double the Geran-2's 185 km/h. Geran-4 reaches approximately 500 km/h. The current Geran-2 card covers the piston-engine variant. The jet successors are meaningfully different systems currently deployed against Ukraine. |
-| **Su-57 Felon** | RU | Russia's only 5th-generation stealth fighter. Confirmed in active combat operations against Ukraine (National Security Journal, Military Watch, August 2025). Fires Kh-69 cruise missiles and R-77M BVR missiles from standoff range. Multi-aircraft formations confirmed as of August 2025. The game has the Su-34 (strike) but not the Su-57 (stealth/5th gen) — the most educationally significant Russian aircraft development. |
-| **Orion MALE drone (Kronshtadt)** | RU | Russia's large MALE (medium-altitude, long-endurance) strike drone. Confirmed shot down in Kursk Oblast September 2025 by Ukrainian interceptor UAV; separately photographed with Kh-BPLA laser-guided missiles November 2025. The game has the Orlan-10 (small ISR) but not the Orion (large strike MALE) — analogous to having Bayraktar TB2 but not an Orlan. |
-| **Kh-101 air-launched cruise missile** | RU | Russia's primary air-launched cruise missile for infrastructure strikes — fired over 1,000 times since 2022, making it statistically the most-used Russian long-range weapon of the war by volume. The game includes Kinzhal (aero-ballistic, rare, ~50 used in war) and Zircon (ship-launched, fewer than 100 used) but not the Kh-101 which has been fired *thousands* of times from Tu-95MS and Tu-160 bombers. This is the largest single factual gap in the Russian arsenal. |
+**3. NASAMS (UA) — Air defense layer incomplete.**
+Up to 12 NASAMS batteries delivered by the US and Norway; the effector is now in domestic Ukrainian co-production. Omitting NASAMS while including Patriot means Ukraine's entire Western air defence is represented by one card, overstating US contribution and erasing Norwegian and European contributions. Suggested rank: 10–11.
 
-**Secondary confirmed assets for future additions:**
-- Vilkha-M guided MLRS (Ukraine, domestically-produced 300mm guided rockets, analogous to HIMARS GMLRS)
-- NASAMS (Ukraine, Norwegian/US air defense, operational alongside Patriot and IRIS-T)
-- Palianytsia (Ukraine, domestically-produced turbojet cruise missile, first confirmed combat August 2024)
-- BM-21 Grad (BOTH, the single most-used rocket artillery system in the war on both sides, absent while Tornado-S is present)
-- Leopard 2A6 (Ukraine, German-supplied, 192 delivered by October 2024, active combat confirmed)
-- UMPB-5R jet-powered glide bomb (Russia, new 2025 weapon, 130–180 km range with self-powered flight)
+**4. BM-21 Grad (BOTH) — Most-used rocket system in the war.**
+Oryx confirms hundreds of Grad losses on both sides. The Grad is the single most-deployed rocket artillery platform of the entire conflict, yet the deck includes only Tornado-S (the elite precision upgrade) while omitting the baseline system. This makes Russian artillery in the deck appear exclusively high-end and misleads players about what frontline artillery actually looks like. Suggested rank: 6–7.
 
-**Ukrainian vs Russian balance:**
-Current deck: 24 Russian-affiliated cards vs 5 Ukrainian + 2 BOTH. The previous report's goal of "50/50 split" is correct but the additions since then have only closed the gap to approximately 80/20. Adding the assets listed above would bring the deck to approximately 35 Ukrainian-side / 26 Russian-side from a pure count, approaching parity. Priority order for additions: Baba Yaga, Bohdana 2S22, Magura V5, IRIS-T, Kh-101, FAB-500+UMPK.
+**5. Gepard SPAAG (UA) — Critical drone-killer absent.**
+Germany's Gepard 35mm self-propelled anti-aircraft system has been one of the most cost-effective assets in Ukraine's anti-drone arsenal, confirmed responsible for hundreds of Geran-2 kills at a fraction of missile intercept cost. Its operational relevance through winter 2024–2025 exceeds the Bohdana in terms of defensive impact. Suggested rank: 8.
 
-**Accurately handled — preserve these:**
-- Kinzhal Patriot intercept (May 2023): correctly cited, verified event, well-narrated.
-- Moskva sinking narrative in Neptune card: excellent, accurate, emotionally resonant.
-- Geran-2 Alabuga production acknowledgment: correct post-update.
-- Zircon first strikes against Ukraine "since late 2024": accurate timeline.
-- TOS-1A rng:7 fix: appropriate for a 6 km system.
-- T-64BV "designed on Ukrainian soil" framing: accurate (Kharkiv Morozov Design Bureau) and educationally valuable.
+#### Country Balance Assessment
+
+26 Russian cards vs 8 Ukrainian cards (2 shared) = Russia represents 72% of the deck by card count. In terms of iconic high-rank assets: Russia has 2 Rank-14 cards (Zircon, Kinzhal), 2 Rank-13 cards (S-400, Tornado-S), 3 Rank-12 cards (Iskander-M, Su-34, Kh-101) vs Ukraine's 1 Rank-14 (Patriot), 1 Rank-13 (Neptune), 1 Rank-12 (HIMARS). Ukraine is outnumbered at every tier. Adding F-16, IRIS-T, NASAMS, Gepard, BM-21, and one long-range strike drone (e.g. Liutyi/UJ-22 Airborne) would bring the ratio to approximately 26 RU : 14 UA — still Russian-heavy, but representative of the real operational picture.
 
 ---
 
 ### UX Vera (UX Designer)
 
-**The Ukrainian card additions improved educational hierarchy immediately.** The country bar system (amber for Russia, blue for Ukraine) is visually clear. Players can now track which side is winning in a way that means something geopolitically. Good.
+**Card information hierarchy on 375px portrait screen:**
+The `.card-description` element is hardcoded to `height: 48px` on desktop and `38px` on mobile with `-webkit-line-clamp: 3`. The lore text for most cards runs 6–8 lines. A player sees the first ~40 words — typically the accessible layperson explanation — and loses the technical context. On mobile this reduces to the first ~30 words. The citation is invisible on the card entirely. The mission-critical educational hook is cut off exactly where it gets interesting.
 
-**Remaining critical UX issues:**
+**Specific layout issues:**
 
-**Selector mode touch affordance is still missing.** In `renderCard()`, when `isInteractive` is true, the only hint that stats are tappable is `.selector-active .card-stat-row:hover` (styles.css:775) — a hover pseudo-class that does not fire on touchscreens. On iPhone, a first-time user in Selector mode sees a static card with no call-to-action and no affordance. The "SELECT BATTLE ATTRIBUTE" banner (height 55px, font ~13px) is easy to miss. Fix: when `isInteractive === true`, add a pulsing left-border (`border-left: 2px solid hsl(var(--color-secondary))` cycling with a @keyframes opacity) to each `.card-stat-row`, and display `"▶ TAP A STAT TO BATTLE"` as a small caption beneath the stats list. This does not require changing game logic.
+- **Stat bar height:** `.card-stat-bar` is `4px` tall. On a retina display this renders at approximately 1.5–2px visual weight — decorative, not readable. Minimum 6px recommended for usable comparison between values.
+- **Combat log height on mobile:** `.hud-footer { height: 85px }` on mobile compresses to approximately 3 visible lines. Round results scroll off before the player reads them. Minimum 110px, or make the footer collapsible/expandable.
+- **ACTIVE ATTRIBUTE banner contrast:** The `.stat-banner` uses `--color-secondary` (HSL 96, 35%, 62%) — olive green — as text on a dark panel background. This achieves approximately 3.5:1 contrast ratio, below the WCAG AA threshold of 4.5:1 for 14px-equivalent text. Increase lightness to 72% to reach compliance.
+- **`card-description` height is fixed, not content-responsive:** Consider `max-height: 72px; overflow-y: auto` instead of a hard clamp, so longer lore is accessible on tap/scroll rather than silently truncated.
 
-**Card description readability:**
-- Font size at ≤600px: 0.62rem = approximately 9.9px. Apple HIG minimum for body text is 17pt; WCAG minimum for normal text AA compliance is 4.5:1 contrast at ≥16px. This fails both. Change to 0.75rem minimum at mobile breakpoint.
-- The `description` field concatenates a plain-English summary with a technical detail paragraph, then clips to 3 lines (height: 48px on desktop, 34px on mobile). The plain-English sentence — the most accessible part — is often cut at exactly the interesting moment. Structural fix: split into `summary` (1 sentence, shown on card) and `detail` (full technical text, dossier only).
+**Game state clarity:**
+- There is no persistent "who is winning" indicator. Players must mentally compare "I have 19, they have 33" to know they are losing. A simple dual-segment progress bar (user deck share vs AI deck share) visualising the deck ratio removes this mental load.
+- The 2.5-second `prepareNextRound` delay shows "STANDBY..." with no countdown or animation. Mobile users tap the screen during this pause; while `isProcessing` catches most double-taps, the silent delay creates uncertainty ("Did my tap register? Is the game frozen?"). A brief animated dot or progress indicator resolves this.
+- **Dead-end state:** When both players tie repeatedly and exhaust cards below the War threshold (< 4 cards each), the game silently terminates in the combat log. The game-over modal never fires in this path. This is a dead-end state with no recovery UI — the player sees "Insufficient reserve assets" in the log and nothing else.
 
-**Color contrast (verified):**
-- `--color-text-dim: 220, 10%, 65%` on panel backgrounds at `220, 18%, 14%` produces approximately 3.2:1 contrast. WCAG AA requires 4.5:1 for normal text. Every description label and stat label in the game fails AA. Fix: raise `--color-text-dim` from 65% to 76% lightness (as recommended in the previous report — this was not implemented).
-- Country bar: `font-size: 0.55rem` ≈ 8.8px. Below any accessible threshold. Change to 0.7rem minimum.
-
-**4,500ms round-transition is still too long.** `prepareNextRound()` timeout at game.js:773 is 4,500ms with a hidden draw button and blank arena. On mobile this reads as a freeze. Users tap the blank area, the DEPLOY button is hidden, nothing responds. Change to 2,500ms. Add a `"PROCESSING..."` or animated ellipsis to the announcement banner during the gap.
-
-**Silence during AI selection delay (Selector mode).**
-When the AI's turn comes, there is a 1,000ms setTimeout before the AI's stat selection appears (game.js:645). The screen shows two face-up cards with no banner change. Casual users do not know if the game is running or waiting for them. Fix: change `elBattleAnnouncement.innerText` to `"RED FORCE SELECTING..."` before the setTimeout fires, then revert when resolved.
-
-**Dead-end state: WAR with insufficient cards.**
-The game calls `checkGameOver()` silently when WAR triggers with fewer than 4 cards per side. The modal text says only "Operational failure. Your combat deck was completely neutralized" — no mention of WAR running out of cards. A player who has been playing carefully and triggered WAR legitimately gets an opaque end state. Fix: set a flag before calling `checkGameOver()` and conditionally modify the modal description: "Your reserves were too depleted to sustain a War escalation."
-
-**Glossary dossier discoverability is still the biggest missed opportunity.**
-The CLASSIFIED DOSSIER tab — real photos, full specs, citations, plain-English analysis — is the best educational content in the game. Nothing during active play points to it. Every educational moment (card drawn, round resolved) is a missed opportunity to surface the dossier. Minimum fix: after each round, add to the combat log: a clickable entry `> Full dossier: [card.name] →` that switches to the Glossary tab and scrolls to that card.
-
-**Player identity is never established.**
-The player is called "PLAYER_COM_01" and the AI is "COM_TARGET_RED". No flag, no country label, no line of text saying "You are commanding Ukraine" or "You are playing as the alliance." The game has meaningful country distinctions on cards but does not ground the player's identity in one of them. Simple fix: on game start, randomly assign the player Ukraine or Russia flag + label, or let them choose. Display it in the panel header alongside the call-sign.
+**Educational content prominence:**
+The Classified Dossier is the game's strongest educational feature — spec grids, real photographs, source citations. But it requires the player to discover the tab, switch views, and scroll to find individual cards. No in-session prompt surfaces it. A single post-round dismissible tooltip ("Tap CLASSIFIED DOSSIER to explore this weapon's full specs and history") would significantly increase dossier engagement and fulfil the educational mission more reliably.
 
 ---
 
@@ -153,56 +125,54 @@ The player is called "PLAYER_COM_01" and the AI is "COM_TARGET_RED". No flag, no
 
 ### Critical
 
-1. **Fix "26 combat units" hardcoded string (game.js:528).** Change to dynamic: `` `${MILITARY_ASSETS.length} combat units deployed to each commander.` `` Current text is wrong by 5 cards and will drift again whenever cards are added.
+- **Fix R-360 Neptune factual error.** Change "largest warship destroyed in combat since World War II" → "largest warship sunk since the 1982 Falklands War, and the most strategically significant naval strike of the 21st century." This is verifiably wrong and directly undermines the game's educational credibility.
 
-2. **Fix "Colateral Clash!" typo (game.js:746).** Correct to "Collateral Clash!" — this is the most visible in-game text string and currently misspelled.
+- **Add F-16 Fighting Falcon (UA, rank 12–13).** Operational since summer 2024, confirmed in cruise missile intercepts. Ukraine's air power is unrepresented — zero fixed-wing combat aircraft in the deck. This is the most significant educational gap in the game.
 
-3. **Add Baba Yaga / Vampire heavy hexacopter drone (UA).** This weapon conducted 2.5 million documented combat missions in 2025 (source: RNBO.gov.ua, NV.ua, Forbes December 2025). It is the highest-tempo Ukrainian weapon currently deployed. Its absence while Russia has two FPV types (Ghoul and Fiber-Optic) is a factual asymmetry. Suggested stats: fp:70, def:12, spd:65, rng:42, tec:72, rank 5. Lore should contrast it with FPV Ghoul: heavier, slower, carries grenades and mines rather than shaped charges. Real photo: multiple widely available Ukraine Army press releases.
-
-4. **Add FAB-500+UMPK glide bomb (RU).** The FAB-500 with UMPK kit is Russia's primary ground-attack weapon of 2024–2025, dropped thousands of times per month from Su-34s (already in the game). The Su-34 card describes using "UMPK satellite-guided precision glide bombs" but the bomb itself has no card. Suggested: rank 11–12, fp:92, def:5, spd:75, rng:72, tec:80. Lore should explain the UMPK conversion kit concept (cheap Cold War bomb + GPS kit = precise glide bomb) and its strategic effect reshaping front-line battles.
-
-5. **Add Bohdana 2S22 howitzer (UA).** Ukraine's only domestically-produced 155mm self-propelled howitzer. 154 units in 2024; 40/month as of October 2024. Multiple combat-confirmed video records. Represents Ukrainian industrial resilience — the educational counterpart to Russia's TOS-1A. Suggested: rank 8, fp:78, def:45, spd:55, rng:72, tec:68.
-
-6. **Fix `--color-text-dim` contrast (styles.css:13).** Change from `220, 10%, 65%` to `220, 10%, 76%`. This is the identical fix recommended in the previous report that was not implemented. WCAG AA failure on every card description label in the game. One CSS variable change.
-
-7. **Add Selector mode touch affordance (game.js + styles.css).** When `isInteractive === true` in `renderCard()`, add class `needs-selection` to the stats list. Style `.needs-selection .card-stat-row { border-left: 2px solid hsl(var(--color-secondary)); }` with a pulsing opacity animation. Add a caption above the stats: `"▶ TAP A STAT TO BATTLE"` (hidden when not interactive). Without this, Selector mode is a dead-end for all first-time mobile users.
+- **Rebalance RU/UA card ratio.** Current ratio is 26 RU : 8 UA. Add a minimum of 6 Ukrainian cards (F-16, IRIS-T SLM, NASAMS, Gepard, BM-21 Grad as shared, one long-range strike drone) to reach approximately 40% Ukrainian representation. The stated mission is to teach about Ukrainian and Russian assets — currently the deck teaches 3.25× more about Russia.
 
 ### High Priority
 
-8. **Add Magura V5 / Sea Baby USV (UA, rank 9–10).** Ukraine's naval drone programme has confirmed sinkings of Russian warships, attacks on the Kerch bridge, and is widely documented. Nothing in the current deck teaches the Black Sea naval dimension of the war from the Ukrainian perspective. Lore should mention the Caesar Kunikov sinking (February 2024) and the fundamental shift this forced on the Russian Black Sea Fleet. Stats: fp:82, def:8, spd:70, rng:85, tec:88.
+- **Add IRIS-T SLM (UA, rank 10–11).** 10+ batteries delivered, 18 more ordered (2026), near-100% intercept rate across 250+ confirmed engagements. More operationally visible in current reporting than Patriot. Critical gap in Ukraine's air defense picture.
 
-9. **Add Kh-101 air-launched cruise missile (RU, rank 12).** Russia's most-frequently-used long-range weapon — over 1,000 fired since 2022 from Tu-95MS and Tu-160 bombers. The game includes Kinzhal (rare, ~50 uses) and Zircon (fewer than 100 uses) but not the Kh-101 which represents the bulk of Russian infrastructure strikes. Its absence creates a false picture of Russian long-range strike capability.
+- **Add BM-21 Grad (BOTH, rank 6–7).** The most-deployed rocket system on both sides per Oryx. Omitting it while including Tornado-S makes Russian artillery appear exclusively elite. Essential for an accurate picture of frontline combat.
 
-10. **Add IRIS-T SLM (UA, rank 10).** Germany's primary Ukrainian air defense contribution. ~10 systems operational. 99% claimed intercept rate (Ukrainian MoD, March 2025). Ukraine ordered 18 additional systems 2026. Complement to Patriot (shorter range, faster response). Its addition would give Ukraine a second air defense card — appropriate given that air defense is the defining Ukrainian tactical problem of the war.
+- **Fix Pantsir-S1 weight.** "30 tons" → "20–22 tons" (wheeled variant actual combat weight).
 
-11. **Promote Patriot PAC-3 to rank 14 (ACE) or add a Ukrainian ACE.** The May 2023 Kinzhal intercept is the single most-documented military achievement of the war's air defense dimension. Currently Patriot (rank 11) loses to Kinzhal (rank 14) in Classic mode — the opposite of what happened in documented reality. Either: (a) promote Patriot to rank 14 as a Ukrainian ace counter-card, (b) add Storm Shadow (UA, rank 14) citing confirmed deep-strike use against Crimea and Russian logistics, or (c) add a second Kinzhal card at rank 13 and Patriot at rank 14. Ukraine having zero Ace cards is mechanically unfair and historically inaccurate.
+- **Fix Mi-28N range spec.** "450 km" (ferry range) → "200–240 km" (combat radius), or relabel as "FERRY RANGE" to avoid cross-card confusion.
 
-12. **Add "How to Play" first-run modal.** Three screens: (1) "Draw a card, compare rank — higher wins" with Classic mode visual. (2) "In Selector mode, tap your best stat to challenge" with arrow pointing at stat rows. (3) "WAR: Tie = both sides bet 3 cards. Highest rank takes all." Dismiss on tap. Show once per session. Without this, Selector mode is consistently misunderstood by first-time players.
+- **Fix TOS-1A Range stat.** Range:7 is the only single-digit value in the deck and reads as a broken field. Normalize to Range:15 to signal "very short range" without appearing like a null value.
 
-13. **Reduce `prepareNextRound` timeout from 4,500ms to 2,500ms** (game.js:773). Add `"STANDBY..."` animated text to the announcement banner during the gap. The 4,500ms freeze has been consistently identified as a mobile usability problem across both critic cycles.
+- **Fix Yasen-M Speed stat.** Speed:72 equals the Mi-28N attack helicopter. Correct to Speed:42–48 to reflect relative submarine tactical mobility.
 
-14. **Fix Bayraktar TB2 lore: "struck Russia's patrol boat Vasily Bykov"** — the Vasily Bykov was damaged but escaped. Change to "struck and damaged" or reframe around the Snake Island narrative (forcing Russia to withdraw from Snake Island in June 2022 under drone threat) which is fully accurate.
+- **Add in-arena win reason display.** Overlay "Rank 9 > Rank 6" or "FIREPOWER: 88 > 75" on the losing card after resolution. The combat log is invisible on mobile at pace — the win reason needs to be on the card itself.
 
-15. **Establish player identity on game start.** Assign a country label and flag to "PLAYER_COM_01" based on the mode or a UI choice. Display it prominently. Players should know they're "COMMANDING UKRAINE" or "NEUTRAL COMMANDER" from the first frame.
+- **Update Lancet-3 lore and TEC stat.** Add mention of the Lancet-3E (AI terminal guidance, fielded mid-2025). Raise TEC from 85 to 88–90 to reflect the upgrade.
 
-16. **Add AI selection animation (Selector mode).** Set `elBattleAnnouncement.innerText = "RED FORCE SELECTING..."` before the `setTimeout` in `aiSelectStat()` (game.js:645). Clears the 1-second silent gap that reads as a hang.
+- **Update Yasen-M Zircon spec.** "Zircon integration planned" → "Zircon integration confirmed (2024–2025 sea trials)."
 
-17. **Replace greedy AI with weighted-random stat selection** (game.js:624–651). Highest stat 65%, second-highest stat 35%. One change to `aiSelectStat()`. Makes the game non-trivially adversarial after early rounds.
-
-18. **Allow stat selection through WAR rounds** (game.js:686). Remove `|| isWarRound` from the classic-mode check in `resolveRound()`. One-line fix. WAR is the highest-stakes moment — the player should retain agency.
+- **Fix dead-end game state.** When the "insufficient reserves" path triggers, ensure `checkGameOver()` fires the modal with an appropriate message so the player receives a proper end-game screen rather than a silent freeze.
 
 ### Nice to Have
 
-19. **Add Geran-3 (RU, rank 5–6).** Jet-powered variant using Chinese JT80 turbojet, speed ~300–370 km/h vs Geran-2's 185 km/h. Confirmed in operational use per Forbes September 2025. Distinct enough from Geran-2 to warrant its own card. Lore should contrast piston vs jet propulsion and explain why speed matters for interception probability.
+- **Rename UI jargon for first-time players.** "INITIALIZE DECK" → "NEW GAME," "COM_TARGET_RED" → "ENEMY FORCE," "ENGAGEMENT PROTOCOL" → "GAME MODE." Keeps atmosphere, removes the comprehension barrier on first contact.
 
-20. **Add Su-57 Felon (RU, rank 13).** Russia's only 5th-generation stealth fighter, confirmed in active combat use against Ukraine (multi-aircraft formations reported August 2025). The game has the Su-34 (strike). The Su-57 (stealth fighter) is educationally important as Russia's most modern aircraft — and a test of whether stealth advantages materialise in a dense-AD environment.
+- **Add Glossary discovery nudge.** After round 1, show a single dismissible tooltip pointing to the CLASSIFIED DOSSIER tab. This surfaces the best educational feature in the game.
 
-21. **Add BM-21 Grad as a BOTH card (rank 3).** The most-used rocket artillery system in the conflict, by both sides, every month. The game has the Tornado-S (an upgrade) but not the basic Grad, which is more recognisable and more common. Educational value: teaches the baseline from which Tornado-S is the upgrade.
+- **Add NASAMS (UA, rank 10–11).** Completes Ukraine's real air defense layer (Patriot + IRIS-T + NASAMS). Kongsberg now co-produces effectors on Ukrainian soil — a strong lore hook.
 
-22. **Add combat-log dossier link after each round.** When a card is resolved, append to the combat log: `[${card.name}]` as a clickable span that switches to the Glossary tab. Surfaces the game's best educational content at peak player engagement.
+- **Add Gepard SPAAG (UA, rank 8).** The drone-killer that protected Ukrainian power infrastructure in winter 2024–2025. Its operational cost-effectiveness vs. Geran-2 drones is one of the war's most instructive asymmetric stories.
 
-23. **Add scale note to stats panel.** A single line beneath the stats list: `"Stats scaled 0–100 across all asset classes (not literal km or km/h)"`. This resolves the MT-LB (spd:61 = literal km/h) and BTR-82A (spd:80 = abstract 0–100) inconsistency that confuses informed players.
+- **Increase card-stat-bar height.** 4px → 6–8px for legibility on high-DPI mobile screens.
 
-24. **Correct T-80BVM speed spec.** Stats show spd:68; specs box says "70 km/h". Align to the same value — either both 70 or both 68. A discrepancy between the stat and the listed spec creates doubt about whether either number is accurate.
+- **Add relative deck size indicator.** A dual-segment progress bar under the deck counters gives players an instant "am I winning?" signal without cognitive overhead.
 
-25. **Add Oryx Confirmed badge to documented assets.** Ka-52, Pantsir-S1, T-72B3M, BTR-82A, Lancet-3, Bayraktar TB2, T-64BV, and HIMARS all have visual Oryx confirmations. A small badge + dossier citation adds credibility and connects the game to verifiable journalism. Educationally significant.
+- **Smarter AI in Selector mode.** Track which 2 stats the human picks most often in recent rounds and shift AI probability away from those, rather than the current static 65/35 best-stat split.
+
+- **Counter-type mechanic.** When a SAM-type card faces an aircraft or missile-type card, award the SAM +12 DEFENSE and +8 RANGE. Models real combined-arms doctrine and creates meaningful decisions without rebuilding the game.
+
+- **Fix `.stat-banner` contrast ratio.** Olive-green text at 3.5:1 → increase `--color-secondary` lightness to 72% to reach WCAG AA (4.5:1) for the active attribute banner.
+
+- **Add 2.5-second inter-round countdown.** Replace silent "STANDBY..." with an animated progress indicator so mobile players know the game is resuming, not frozen.
+
+- **Fix stale code comment.** `game.js` line 1126 reads "Browse unique assets (13 base assets in MILITARY_ASSETS)" — the deck now has 36 unique assets. Update the comment.
