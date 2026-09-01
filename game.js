@@ -51,8 +51,8 @@ const MILITARY_ASSETS = [
         name: "Lancet-3",
         country: "RU",
         type: "Loitering Munition Dagger",
-        description: "A Russian loitering drone that circles over the battlefield and then nose-dives into its target at high speed, destroying Ukrainian artillery pieces and vehicles that are costly and difficult to replace. Advanced precision loitering weapon featuring cross-wing stabilizers and optical-electronic tracking to execute high-speed diving strikes against counter-battery artillery.",
-        stats: { fp: 75, def: 15, spd: 80, rng: 60, tec: 85 },
+        description: "A Russian loitering drone that circles over the battlefield and then nose-dives into its target at high speed, destroying Ukrainian artillery pieces and vehicles that are costly and difficult to replace. By mid-2025, the primary frontline variant is the Lancet-3E, featuring AI-assisted terminal guidance for precision strikes even against moving targets. Advanced precision loitering weapon featuring cross-wing stabilizers and AI-optical tracking to execute high-speed diving strikes against counter-battery artillery.",
+        stats: { fp: 75, def: 15, spd: 80, rng: 60, tec: 88 },
         nato: "N/A",
         specs: { weight: "12 kg", warhead: "3 kg HE-FRAG/HEAT", speed: "80–300 km/h", endurance: "40 mins" },
         citation: "CSIS Missile Defense Project — Loitering Munitions and Autonomous Drones, 2024"
@@ -153,7 +153,7 @@ const MILITARY_ASSETS = [
         description: "A Russian all-weather attack helicopter built to operate in complete darkness using night-vision systems, firing missiles at Ukrainian armor and strongpoints under cover of night. All-weather heavy tandem combat helicopter armed with high-velocity Ataka-V precision missiles and a chin-mounted 30mm 2A42 automatic cannon for close air support operations.",
         stats: { fp: 86, def: 75, spd: 80, rng: 68, tec: 86 },
         nato: "Havoc-B",
-        specs: { weight: "10.9 tons", armaments: "Ataka-V ATGMs & 30mm 2A42 Gun", speed: "300 km/h", range: "450 km" },
+        specs: { weight: "10.9 tons", armaments: "Ataka-V ATGMs & 30mm 2A42 Gun", speed: "300 km/h", range: "200–240 km (combat radius)" },
         citation: "IISS Military Balance 2024, Tactical Air Force Combat Aviation, p. 200"
     },
     {
@@ -173,7 +173,7 @@ const MILITARY_ASSETS = [
         country: "RU",
         type: "Heavy Thermobaric Rocket Launcher",
         description: "A Russian tank-chassis rocket launcher that fires thermobaric (vacuum bomb) rockets creating massive pressure-blast waves over wide areas. Their use in populated areas in Ukraine has been documented by Human Rights Watch. Highly destructive short-range rocket system firing 220mm thermobaric unguided rockets generating intense high-temperature blast waves over wide tactical areas.",
-        stats: { fp: 92, def: 75, spd: 60, rng: 7, tec: 78 },
+        stats: { fp: 92, def: 75, spd: 60, rng: 15, tec: 78 },
         nato: "TOS-1A",
         specs: { weight: "45.3 tons", caliber: "220mm (24 launch tubes)", range: "6,000 m", chassis: "T-72 Tank Tracked" },
         citation: "RUSI Land Combat — Russian Thermobaric Artillery Assessment, Dec 2023"
@@ -197,7 +197,7 @@ const MILITARY_ASSETS = [
         description: "A Russian air defense vehicle combining radar-guided missiles and twin autocannons on a single truck — designed to shoot down drones and low-flying missiles, though dozens have been destroyed by Ukrainian drone strikes. Self-propelled truck-mounted air defense system integrating twin 30mm automatic autocannons and 12 command-guided radar-intercept missiles for drone and missile shielding.",
         stats: { fp: 82, def: 88, spd: 60, rng: 70, tec: 90 },
         nato: "SA-22 Greyhound",
-        specs: { weight: "30 tons", armaments: "Twin 30mm Guns & 12 SAMs", range: "20 km (Missile), 4 km (Gun)", tracking: "Dual-band Target Radar" },
+        specs: { weight: "20–22 tons", armaments: "Twin 30mm Guns & 12 SAMs", range: "20 km (Missile), 4 km (Gun)", tracking: "Dual-band Target Radar" },
         citation: "Jane's Land-Based Air Defence Systems — Point Protection units, 2023-2024"
     },
     {
@@ -217,9 +217,9 @@ const MILITARY_ASSETS = [
         country: "RU",
         type: "Nuclear Cruise Missile Submarine",
         description: "Russia's most advanced nuclear-powered attack submarine — K-561 Kazan — capable of firing cruise missiles at targets over 1,500 km away while remaining submerged and nearly undetectable, representing a strategic-level threat to European infrastructure. Highly silent 4th-generation nuclear-powered cruise missile submarine (NATO: Graney-M) optimized for deep-sea standalone stealth patrol and firing long-range Kalibr cruise missiles.",
-        stats: { fp: 94, def: 88, spd: 72, rng: 90, tec: 92 },
+        stats: { fp: 94, def: 88, spd: 42, rng: 90, tec: 92 },
         nato: "Graney-M",
-        specs: { displacement: "13,800 tons", armaments: "Kalibr Cruise Missiles (Zircon integration planned)", speed: "28 knots", crew: "64 submariners" },
+        specs: { displacement: "13,800 tons", armaments: "Kalibr Cruise Missiles (Zircon integration confirmed, 2024–2025 sea trials)", speed: "28 knots", crew: "64 submariners" },
         citation: "Royal United Services Institute (RUSI) Submarine Threat Assessment, 2024"
     },
     {
@@ -315,7 +315,7 @@ const MILITARY_ASSETS = [
         name: "R-360 Neptune",
         country: "UA",
         type: "Anti-Ship Cruise Missile",
-        description: "A Ukrainian-designed cruise missile that flies low over the sea to avoid radar detection — Ukraine fired two at the Moskva, Russia's Black Sea Fleet flagship, on 13 April 2022, sinking the largest warship destroyed in combat since World War II. Developed by Kyiv's Luch Design Bureau, the Neptune represents Ukraine's most consequential domestically-produced weapon of the war. Subsonic sea-skimming cruise missile using the ARGS-54 active radar seeker and inertial navigation for autonomous terminal guidance against surface combatants.",
+        description: "A Ukrainian-designed cruise missile that flies low over the sea to avoid radar detection — Ukraine fired two at the Moskva, Russia's Black Sea Fleet flagship, on 13 April 2022, sinking the largest warship sunk in combat since the 1982 Falklands War, and the most strategically significant naval strike of the 21st century. Developed by Kyiv's Luch Design Bureau, the Neptune represents Ukraine's most consequential domestically-produced weapon of the war. Subsonic sea-skimming cruise missile using the ARGS-54 active radar seeker and inertial navigation for autonomous terminal guidance against surface combatants.",
         stats: { fp: 90, def: 15, spd: 62, rng: 88, tec: 88 },
         nato: "N/A",
         specs: { weight: "870 kg", warhead: "150 kg HEAT", range: "280–400 km", guidance: "ARGS-54 Active Radar + INS" },
@@ -397,6 +397,50 @@ const MILITARY_ASSETS = [
         nato: "AS-23A Kodiak",
         specs: { weight: "2,400 kg", warhead: "450 kg HE penetrating", speed: "Mach 0.6–0.78 (subsonic)", range: "2,500–3,500 km" },
         citation: "CSIS Missile Threat — Kh-101/Kh-102 Air-Launched Cruise Missile Profile, 2024; GlobalSecurity.org"
+    },
+    {
+        rank: 12,
+        name: "F-16 Fighting Falcon",
+        country: "UA",
+        type: "4th Generation Multirole Fighter",
+        description: "The F-16 is an American single-engine jet fighter that Ukraine has been flying since summer 2024, donated by the Netherlands, Denmark, and Belgium — Ukraine's first Western combat aircraft. It can fly faster than the speed of sound and carry guided missiles and precision bombs, used to intercept Russian cruise missiles and strike targets behind Russian lines. In October 2024, a Ukrainian F-16 pilot scored an air-to-air kill against a Russian Su-30 fighter using an AIM-120 missile — the first air-to-air kill by a Western-supplied jet in the Ukraine war. 4th-generation multirole fighter integrating APG-68 radar, Link-16 datalink, and a full suite of NATO-standard precision munitions including AIM-120 AMRAAM and JDAM guided bombs.",
+        stats: { fp: 82, def: 42, spd: 92, rng: 78, tec: 90 },
+        nato: "Viper (US informal)",
+        specs: { weight: "~10 tons combat loaded", speed: "2,414 km/h (Mach 2.05)", armaments: "AIM-120 AMRAAM, AIM-9, JDAM, AGM-88 HARM", ceiling: "15,240 m" },
+        citation: "IISS Military Balance 2025, Ukrainian Air Force Equipment, p. 109; Oryx Ukrainian Air Force Loss and Acquisition Tracker, 2024"
+    },
+    {
+        rank: 10,
+        name: "IRIS-T SLM",
+        country: "UA",
+        type: "Medium-Range Ground-Based Air Defense System",
+        description: "A German-made missile defense system on a truck that shoots down cruise missiles, drones, and aircraft up to 40 km away using heat-seeking missiles fired from a rotating launcher pointing skyward. Germany delivered the first battery in October 2022 and has since sent more than ten systems — making the IRIS-T SLM Germany's most significant military contribution to Ukraine. Ukrainian operators reported near-100% intercept rates across more than 250 confirmed engagements, proving uniquely effective against Russia's slow-flying Geran-2 drone swarms. Mobile ground-based air defense battery using the TRML-4D AESA radar for 360° detection and precision IR-guided intercept missiles.",
+        stats: { fp: 80, def: 76, spd: 48, rng: 80, tec: 92 },
+        nato: "N/A",
+        specs: { missiles: "IRIS-T SL (infrared homing)", range: "40 km intercept, 20 km altitude", radar: "TRML-4D AESA 3D", chassis: "MAN SX 45 8×8 Truck" },
+        citation: "IISS Military Balance 2025, Ukrainian Air Defence Systems, p. 110; Diehl Defence IRIS-T SLM System Specification, 2024; German MoD Deliveries to Ukraine Report, 2026"
+    },
+    {
+        rank: 6,
+        name: "BM-21 Grad",
+        country: "BOTH",
+        type: "Multiple Launch Rocket System",
+        description: "A Soviet-era rocket artillery truck — the 'Grad' meaning 'hail' in Russian — that fires a salvo of 40 unguided 122mm rockets in 20 seconds, blanketing an area the size of several football pitches with shrapnel. Both Russia and Ukraine operate hundreds of Grad systems, making it the single most-deployed rocket artillery platform in the entire war by volume. The Oryx conflict monitor has documented hundreds of individual Grad losses on both sides, and its distinctive thunderclap launch — a rapid sequence of whooshes and booms — has become one of the defining sounds of the Ukraine war. Soviet-era 40-tube 122mm MLRS mounted on an Ural-375D truck, capable of a full battery ripple in 20 seconds for devastating area-saturation fire.",
+        stats: { fp: 78, def: 28, spd: 72, rng: 42, tec: 38 },
+        nato: "M-1964",
+        specs: { caliber: "122mm (40 tubes)", range: "20 km standard, 45 km (extended)", chassis: "Ural-375D 6×6 Truck", salvo: "40 rockets in 20 seconds" },
+        citation: "IISS Military Balance 2024, Russian & Ukrainian Rocket Artillery, p. 193; Oryx BM-21 Grad Loss Tracker (RU + UA combined), 2025"
+    },
+    {
+        rank: 8,
+        name: "Gepard SPAAG",
+        country: "UA",
+        type: "Self-Propelled Anti-Aircraft Gun",
+        description: "A West German anti-aircraft tank from the 1970s that became one of Ukraine's most cost-effective drone killers — twin 35mm radar-guided cannons that fire over 1,100 rounds per minute and can hit targets flying 5 km away. Germany donated 37 Gepards to Ukraine starting in 2022, and they proved uniquely effective against Russia's slow-flying Geran-2 kamikaze drones, destroying each one for roughly $50 in ammunition versus thousands of dollars for a missile intercept. During winter 2024–2025 Gepards protected power infrastructure across Ukrainian cities from nightly Geran-2 swarm attacks. Self-propelled air defense vehicle using Siemens MPDR-12 search and tracking radars to autonomously engage low-flying aerial threats.",
+        stats: { fp: 70, def: 48, spd: 65, rng: 48, tec: 80 },
+        nato: "Gepard",
+        specs: { weight: "47.5 tons", armaments: "Twin 35mm Oerlikon KDA cannons (1,100 rpm each)", range: "5 km (AA effective)", tracking: "Siemens MPDR-12 Search & Fire-Control Radar" },
+        citation: "IISS Military Balance 2025, Ukrainian Ground Forces Equipment, p. 109; Rheinmetall Gepard Performance Data Sheet; Jane's Land-Based Air Defence, 2024"
     }
 ];
 
@@ -912,7 +956,7 @@ const FILE_EXT_MAP = {
     'Yasen-M_(K-561_Kazan)':       'assets/Yas-M_(Kazan).jpg',
 };
 
-// Determine correct image asset filename from name (matching our 26 unique realistic photos)
+// Determine correct image asset filename from name (count auto-reflects MILITARY_ASSETS length)
 function getCardImage(card) {
     const base = card.name.replace(/ /g, '_').replace(/'/g, '');
 
@@ -1123,7 +1167,7 @@ function renderGlossaryGrid() {
     
     grid.innerHTML = '';
     
-    // Browse unique assets (13 base assets in MILITARY_ASSETS)
+    // Browse unique assets (count auto-reflects MILITARY_ASSETS length)
     MILITARY_ASSETS.forEach((card, index) => {
         const miniCard = document.createElement('div');
         miniCard.className = 'glossary-mini-card';
