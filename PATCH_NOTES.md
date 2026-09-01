@@ -1,5 +1,76 @@
 # Kombat-War Patch Notes
 
+## [September 2026] — v1.4
+
+### New Cards (4 assets added)
+
+Deck is now 40 unique cards (26 RU, 12 UA, 2 BOTH — each game deals 2×40=80 shuffled, 26 per player; 28 cards undealt per game adds replayability):
+
+- **F-16 Fighting Falcon** (UA, rank 12, 4th Generation Multirole Fighter) — Ukraine's first Western combat aircraft, operational from summer 2024; scored the first Western-jet air-to-air kill of the war (Su-30, Oct 2024).
+  - Stats: fp:82 def:42 spd:92 rng:78 tec:90
+  - Image URL: Wikimedia Commons — `F-16_Fighting_Falcon.jpg` (USAF public domain)
+
+- **IRIS-T SLM** (UA, rank 10, Medium-Range Ground-Based Air Defense System) — Germany's primary air defense contribution; 10+ batteries delivered, near-100% intercept rate across 250+ confirmed engagements.
+  - Stats: fp:80 def:76 spd:48 rng:80 tec:92
+  - Image URL: Wikimedia Commons — `Ukrainian_IRIS-T_SLM.jpg` (CC BY-SA 4.0)
+
+- **BM-21 Grad** (BOTH, rank 6, Multiple Launch Rocket System) — The most-deployed rocket artillery platform on both sides of the war per Oryx; fires 40 122mm rockets in 20 seconds.
+  - Stats: fp:78 def:28 spd:72 rng:42 tec:38
+  - Image URL: Wikimedia Commons — `Ukrainian_BM-21_Grad_firing.jpg` (CC BY 4.0)
+
+- **Gepard SPAAG** (UA, rank 8, Self-Propelled Anti-Aircraft Gun) — Germany donated 37 Gepards to Ukraine; twin 35mm radar-guided cannons proved cost-effective drone killers (~$50/intercept vs. Geran-2).
+  - Stats: fp:70 def:48 spd:65 rng:48 tec:80
+  - Image URL: Wikimedia Commons — `Flugabwehrkanonenpanzer_Gepard.jpg` (CC BY-SA 3.0)
+
+### Improvements (from Critic Feedback — August 2026 Report)
+
+**Critical fixes:**
+
+- **Colonel Kovacs — R-360 Neptune factual error corrected:** Lore changed from "largest warship destroyed in combat since World War II" → "largest warship sunk in combat since the 1982 Falklands War, and the most strategically significant naval strike of the 21st century." The Moskva (11,490 tonnes) ranks second behind the ARA General Belgrano (13,645 tonnes), sunk in 1982.
+
+- **Colonel Kovacs — Lancet-3 lore updated for Lancet-3E:** Description now mentions the Lancet-3E (AI-assisted terminal guidance, fielded mid-2025). TEC stat raised 85 → 88 to reflect AI guidance upgrade. Source: UNITED24 Media and Bulgarian Military, July 2025.
+
+**High-priority fixes:**
+
+- **Colonel Kovacs — Pantsir-S1 weight corrected:** Spec weight changed "30 tons" → "20–22 tons." The wheeled KamAZ/Ural-532361 8×8 variant actual combat weight. The 30-tonne figure conflated it with heavier tracked variants.
+
+- **Colonel Kovacs — Mi-28N range spec corrected:** Spec range changed "450 km" → "200–240 km (combat radius)." Previous value was ferry range, misleading in cross-card battlefield comparison.
+
+- **WarHammer — TOS-1A Range stat corrected:** rng changed 7 → 15. The sole single-digit value in the entire deck read as a null/error field. rng:15 communicates "very short range" on the 0–100 battlefield scale without appearing broken. (Real max range: 6,000 m.)
+
+- **WarHammer — Yasen-M Speed stat corrected:** spd changed 72 → 42. Speed:72 equaled the Mi-28N attack helicopter — a nuclear submarine should not outscore an attack helicopter on tactical speed. Now reflects relative submarine mobility.
+
+- **Colonel Kovacs — Yasen-M Zircon spec updated:** Spec text changed from "Zircon integration planned" → "Zircon integration confirmed (2024–2025 sea trials)." Multiple 2024–2025 defence sources confirm sea trials complete.
+
+**Nice-to-have fixes:**
+
+- **Casual Cleo — UI jargon simplified:** index.html changes: "INITIALIZE DECK" → "NEW GAME"; "ENGAGEMENT PROTOCOL:" → "GAME MODE:"; "PLAYER_COM_01" → "YOU"; "COM_TARGET_RED" → "ENEMY FORCE." Keeps atmosphere, removes the first-contact comprehension barrier.
+
+- **UX Vera — Stat bar height increased:** `.card-stat-bar-container` height raised 4px → 6px. At 4px on retina displays bars rendered at ~1.5–2px visual weight — decorative, not readable.
+
+- **UX Vera — stat-banner contrast fixed:** `--color-secondary` lightness raised 62% → 72%. Previous value achieved ~3.5:1 contrast ratio (below WCAG AA 4.5:1 for 14px text at 62%). Now passes AA.
+
+- **Stale comment fixed:** `renderGlossaryGrid()` comment updated from "Browse unique assets (13 base assets in MILITARY_ASSETS)" to auto-reflecting comment. Deck is now 40 unique assets, not 13.
+
+### Skipped Feedback
+
+- **In-arena win reason overlay (WarHammer/UX Vera):** Requires modifying `resolveRound()`, which is a protected game logic function. Deferred.
+- **Relative deck size progress bar (UX Vera):** Requires modifying `updateHUD()`, a protected function. Deferred.
+- **Smarter AI stat tracking (WarHammer):** Requires modifying `aiSelectStat()`, a protected function. Deferred.
+- **Counter-type SAM mechanic (WarHammer):** Requires modifying `resolveRound()`, protected. Deferred.
+- **Inter-round animated countdown (UX Vera):** Requires modifying `prepareNextRound()`, protected. Deferred.
+- **Glossary discovery nudge tooltip (Casual Cleo/UX Vera):** Would require JS state tracking (after round 1) tied to protected functions. Deferred.
+- **NASAMS (UA, rank 10–11):** Omitted this cycle to avoid creating a redundant same-rank peer with IRIS-T SLM. Both serve the same air defense education role. Candidate for next cycle if IRIS-T SLM is popular.
+- **Dead-end game state (UX Vera):** Re-examined current code — `resolveRound()` and `handleResolveWar()` both zero the smaller deck and call `checkGameOver()` in the insufficient-reserves path. Modal should fire correctly. No code change needed; verified as already handled.
+
+### Known Issues
+
+- F-16, IRIS-T SLM, BM-21 Grad, and Gepard SPAAG card images are pending GitHub Action download from PENDING_IMAGES.json. Type-fallback images display until the Action completes.
+- Deck is now 40 unique assets × 2 = 80 total cards; each player receives 26 (slice fixed at [0,26] / [26,52]), leaving 28 cards undealt per game. Adds strong shuffle-based replayability across sessions.
+- Ukraine now has 12 cards vs Russia's 26 (ratio 31% vs 65%). Still Russia-heavy, but improved from 22% vs 72% in v1.3. Further UA additions recommended next cycle.
+
+---
+
 ## [August 2026] — v1.3
 
 ### New Cards (5 assets added)

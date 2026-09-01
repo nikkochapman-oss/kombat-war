@@ -1,0 +1,22 @@
+[
+  {
+    "cardName": "F-16 Fighting Falcon",
+    "varName": "IMAGE_F_16_FIGHTING_FALCON",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/F-16_Fighting_Falcon.jpg"
+  },
+  {
+    "cardName": "IRIS-T SLM",
+    "varName": "IMAGE_IRIS_T_SLM",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ukrainian_IRIS-T_SLM.jpg"
+  },
+  {
+    "cardName": "BM-21 Grad",
+    "varName": "IMAGE_BM_21_GRAD",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ukrainian_BM-21_Grad_firing.jpg"
+  },
+  {
+    "cardName": "Gepard SPAAG",
+    "varName": "IMAGE_GEPARD_SPAAG",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Flugabwehrkanonenpanzer_Gepard.jpg"
+  }
+]

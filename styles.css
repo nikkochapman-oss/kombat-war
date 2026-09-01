@@ -7,7 +7,7 @@
     --color-bg-dark: 220, 20%, 10%;
     --color-bg-panel: 220, 18%, 14%;
     --color-primary: 38, 100%, 55%; /* Tactical Command Amber Gold */
-    --color-secondary: 96, 35%, 62%; /* Matte Olive Drab */
+    --color-secondary: 96, 35%, 72%; /* Matte Olive Drab — raised to 72% for WCAG AA contrast */
     --color-accent: 12, 75%, 55%; /* Tactical Rust Red */
     --color-text-bright: 0, 0%, 96%;
     --color-text-dim: 220, 10%, 76%;
@@ -819,7 +819,7 @@ body {
 
 .card-stat-bar-container {
     flex: 1;
-    height: 4px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.08);
     margin: 0 8px;
     border-radius: 2px;
@@ -830,6 +830,7 @@ body {
     height: 100%;
     background: hsl(var(--color-primary));
     width: 0;
+    min-height: 6px;
     transition: width 1s ease-out;
 }
 
