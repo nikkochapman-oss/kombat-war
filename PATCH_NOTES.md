@@ -1,5 +1,81 @@
 # Kombat-War Patch Notes
 
+## [October 2026] — v1.4
+
+### New Cards (4 assets added)
+
+Deck is now 39 unique cards (27 RU, 12 UA, 2 BOTH — each game deals 2×39=78 shuffled, 26 per player, with 26 unused per deal adding high replayability):
+
+- **Palianytsia** (UA, rank 12, Turbojet Drone-Missile) — Ukraine's most significant domestic strike weapon; 320 kg GPS-guided turbojet drone-missile with 650 km range and 100 kg warhead. Unveiled by Zelenskyy on Independence Day 2024, mass-produced by Ukroboronprom.
+  - Stats: fp:80 def:12 spd:72 rng:86 tec:84
+  - Image: **Deferred** — no verified Wikimedia Commons direct photo found; type fallback displays until next cycle.
+
+- **F-16AM Fighting Falcon** (UA, rank 11, Multirole Fighter Jet) — First advanced Western fighter in Ukraine's combat air force; Block 15 MLU jets from Netherlands/Denmark operational since summer 2024 with AIM-120 AMRAAM and NATO-standard radar.
+  - Stats: fp:82 def:58 spd:92 rng:72 tec:88
+  - Image URL: Wikimedia Commons — `F-16AM_Ukrainian_Air_Force_during_take_off.jpg` (CC BY 4.0)
+
+- **Dragon SHORAD** (UA, rank 9, Domestic SHORAD Missile System) — Ukrainian domestically built HMMWV-mounted SHORAD revealed at Eurosatory 2026 after 18 months of combat use; fires AIM-9M/R-73 missiles up to 15 km range via Starlink-controlled launcher.
+  - Stats: fp:72 def:60 spd:68 rng:62 tec:80
+  - Image: **Deferred** — Dragon SHORAD is a newly unveiled system with limited Wikimedia Commons coverage; will retry next cycle.
+
+- **FAB-1500 UMPK** (RU, rank 13, Precision Guided Heavy Glide Bomb) — Russia's primary bunker-busting weapon since late 2024; 1,500 kg bomb with UMPK glide kit achieving 60–100 km range (UMPK-PD turbojet variant: 200 km). Penetrates 3m reinforced concrete.
+  - Stats: fp:97 def:5 spd:75 rng:78 tec:82
+  - Image URL: Wikimedia Commons — `Fab-1500-umpk.jpg` (Russian MoD, public domain)
+
+### Removed Cards
+
+- **Yasen-M (K-561 Kazan)** — Removed per Colonel Kovacs critical finding: no confirmed combat record of this Northern Fleet nuclear submarine firing at Ukrainian targets. All documented Kalibr strikes against Ukraine originated from Black Sea Fleet surface ships and Project 636.3 Kilo submarines. Including it misled learners about what has actually been deployed in Ukraine. (Colonel Kovacs FEEDBACK.md September 2026, Critical.)
+
+### Improvements (from Critic Feedback — September 2026 Report)
+
+**Critical fixes:**
+
+- **Colonel Kovacs — Yasen-M removed:** Replaced with Palianytsia (UA) and FAB-1500 UMPK (RU) — both confirmed in dozens of active combat strikes. (game.js)
+- **Colonel Kovacs / UX Vera — FAB-500 UMPK glide range corrected:** specs.range changed from "60–70 km glide range" to "60–100 km glide range (variant-dependent)" reflecting 2025 extended-range UMPK variants confirmed in use. (game.js:363)
+- **UX Vera / Casual Cleo — iOS safe-area modal fix:** `.hud-modal` padding-bottom on ≤600px changed from `20px` to `max(20px, env(safe-area-inset-bottom) + 12px)` to prevent iOS home indicator obscuring the "RE-DEPLOY DECK" CTA. (styles.css:1578)
+- **UX Vera / Casual Cleo — Tap stat hint repositioned:** `.tap-stat-hint` div moved from after the stats list to between the card description and stats list in renderCard() template, ensuring it is always visible on mobile without scrolling. (game.js:985–998)
+
+**High priority fixes:**
+
+- **Colonel Kovacs — Patriot PAC-3 stats corrected:** def raised 80→88 and rng raised 90→92 to reflect PAC-3 MSE engagement envelope and reduce imbalance vs S-400 (def:94, rng:96). (game.js:343)
+- **WarHammer — Selector AI stat-denial mode added:** aiSelectStat() now uses three-way random: 25% stat-denial (picks user's weakest stat), 35% AI second-best, 40% AI best. Previous 65/35 split was transparent after two games. (game.js:680–693)
+- **Colonel Kovacs / Casual Cleo — War mechanic sub-label added:** RESOLVE TIEBREAK button now includes inline hint "Equal ranks — ante 3 cards face-down, then battle the 4th" as `.btn-sublabel` span. CSS added for `.btn-sublabel` style. (index.html:93, styles.css)
+- **Colonel Kovacs — Kinzhal lore updated:** "successfully intercepted... in May 2023" updated to "intercepted in multiple confirmed engagements through 2024–2025, beginning with the world's first confirmed hypersonic intercept in May 2023." (game.js:286)
+- **UX Vera — Losing card legibility fix:** `.losing-card` opacity raised 0.5→0.7 and filter changed grayscale(0.6)→grayscale(0.3). Educational content on the losing card now remains readable. (styles.css:854)
+- **Casual Cleo — HIMARS lore ATACMS context added:** Lore sentence added noting ATACMS delivery late 2023 and subsequent strikes on Russian airfields in Crimea. (game.js:307)
+
+**Factual corrections:**
+
+- **Colonel Kovacs — Iskander-M range updated:** specs.range changed from "~700–800 km (assessed)" to "~700–900 km (assessed)" per current IISS/CSIS assessments. (game.js:234)
+- **Colonel Kovacs — Geran-2 range corrected:** specs.range changed from "2,000 km" to "~1,700–2,000 km" to reflect the most commonly cited operational range figure. (game.js:68)
+- **Colonel Kovacs — S-350 Vityaz deployment context fixed:** Description updated from "protecting Russian formations" to "protecting key fixed assets like Russian airbases and command nodes" — a strategically meaningful distinction. (game.js:187)
+
+**Nice to have:**
+
+- **UX Vera — `.dossier-classification` font-size bumped:** 0.6rem→0.65rem to improve readability at near-minimum screen sizes. (styles.css:1170)
+- **UX Vera — `.tap-stat-hint` visual enhancement:** Added subtle background tint and top/bottom border lines so the hint reads as a distinct UI element, not floating text. (styles.css:794)
+
+### Deferred Images
+
+- **Palianytsia**: No verified Wikimedia Commons direct photo URL found. System was publicly unveiled mid-2024; high-quality Commons photos not yet catalogued at time of this cycle.
+- **Dragon SHORAD**: Newly unveiled at Eurosatory 2026; no Wikimedia Commons file found. Will retry next cycle.
+
+### Skipped Feedback
+
+- **WarHammer — War card selection mechanic:** "Choose one of three face-down war cards" variant requires modifying `handleResolveWar()` game logic — explicitly protected. Flagged for future cycle.
+- **Casual Cleo — First-load Glossary tooltip:** Multi-component feature (localStorage state + CSS tooltip). Nice-to-have deferred.
+- **Casual Cleo — Player rename (PLAYER_COM_01 / COM_TARGET_RED):** Requires game state and HTML panel changes; deferred.
+- **WarHammer — Thematic synergy mechanic (Su-34/FAB-500 chain):** Would require significant game logic additions; deferred.
+- **UX Vera — Glossary sort/filter by country/type:** Nice-to-have, multi-element change; deferred.
+- **UX Vera — Game over dead-end WAR state delay (300ms):** Requires modifying `resolveRound()` — protected game logic. Deferred.
+
+### Known Issues
+
+- Palianytsia and Dragon SHORAD lack base64 photos in assets-mobile.js; type-fallback images display until manual photo sourcing next cycle.
+- Deck is now 39 unique assets × 2 = 78 total cards; each player still receives 26 (slice fixed at [0,26] / [26,52]), leaving 26 cards undealt per game. Increases shuffle-based replayability.
+
+---
+
 ## [August 2026] — v1.3
 
 ### New Cards (5 assets added)

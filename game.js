@@ -65,7 +65,7 @@ const MILITARY_ASSETS = [
         description: "Originally imported from Iran and now mass-produced domestically at Russia's Alabuga facility in Tatarstan, the Geran-2 has been fired by the thousands at Ukrainian cities and power infrastructure — becoming a nightly threat to civilians. Long-range straight-wing cruise drone (Russian designation for the Iranian Shahed-136 derivative) utilizing satellite and inertial guidance to conduct deep standoff strikes on critical infrastructure.",
         stats: { fp: 80, def: 18, spd: 55, rng: 90, tec: 72 },
         nato: "N/A (Iranian Shahed-136 derivative)",
-        specs: { weight: "200 kg", warhead: "50 kg HE-Blast", speed: "185 km/h", range: "2,000 km" },
+        specs: { weight: "200 kg", warhead: "50 kg HE-Blast", speed: "185 km/h", range: "~1,700–2,000 km" },
         citation: "CSIS Missile Threat — Long-Range Strike Platforms in the Ukraine Theater, 2024"
     },
     {
@@ -183,7 +183,7 @@ const MILITARY_ASSETS = [
         name: "S-350 'Vityaz'",
         country: "RU",
         type: "Medium-Range SAM System",
-        description: "A modern Russian air defense system that tracks and fires at dozens of incoming drones and missiles simultaneously using an active radar — protecting Russian formations from Ukrainian long-range strikes. Modern point defense battery utilizing highly agile interceptor missiles and active AESA radar guidance to counter low-altitude saturated drone and cruise missile attacks.",
+        description: "A modern Russian air defense system that tracks and fires at dozens of incoming drones and missiles simultaneously using an active radar — primarily protecting fixed assets like Russian airbases and command nodes from Ukrainian long-range strikes. Modern point defense battery utilizing highly agile interceptor missiles and active AESA radar guidance to counter low-altitude saturated drone and cruise missile attacks.",
         stats: { fp: 85, def: 85, spd: 50, rng: 88, tec: 92 },
         nato: "No NATO reporting name assigned",
         specs: { missiles: "9M96E2 active radar", speed: "Mach 5.1", range: "120 km", tracking: "AESA Radar" },
@@ -212,17 +212,6 @@ const MILITARY_ASSETS = [
         citation: "IISS Military Balance 2024, Russian Navy Black Sea Fleet, p. 199"
     },
     {
-        rank: 11,
-        name: "Yasen-M (K-561 Kazan)",
-        country: "RU",
-        type: "Nuclear Cruise Missile Submarine",
-        description: "Russia's most advanced nuclear-powered attack submarine — K-561 Kazan — capable of firing cruise missiles at targets over 1,500 km away while remaining submerged and nearly undetectable, representing a strategic-level threat to European infrastructure. Highly silent 4th-generation nuclear-powered cruise missile submarine (NATO: Graney-M) optimized for deep-sea standalone stealth patrol and firing long-range Kalibr cruise missiles.",
-        stats: { fp: 94, def: 88, spd: 72, rng: 90, tec: 92 },
-        nato: "Graney-M",
-        specs: { displacement: "13,800 tons", armaments: "Kalibr Cruise Missiles (Zircon integration planned)", speed: "28 knots", crew: "64 submariners" },
-        citation: "Royal United Services Institute (RUSI) Submarine Threat Assessment, 2024"
-    },
-    {
         rank: 12,
         name: "Iskander-M",
         country: "RU",
@@ -230,7 +219,7 @@ const MILITARY_ASSETS = [
         description: "Russia's most feared surface-to-surface missile system — a mobile launcher that fires two precision ballistic missiles at near-hypersonic speed, used hundreds of times against Ukrainian cities, power plants, and command posts. High-mobility road ballistic system deploying two 9M723 maneuvering missiles to execute precision standoff strikes against critical infrastructure.",
         stats: { fp: 95, def: 40, spd: 90, rng: 92, tec: 90 },
         nato: "SS-26 Stone",
-        specs: { weight: "3.8 tons", payload: "480 kg Warhead", speed: "Mach 5.9", range: "500 km (declared); ~700–800 km (assessed)" },
+        specs: { weight: "3.8 tons", payload: "480 kg Warhead", speed: "Mach 5.9", range: "500 km (declared); ~700–900 km (assessed)" },
         citation: "CSIS Missile Defense Project — Tactical Ballistic Missile Threat Profiles, 2024"
     },
     {
@@ -282,7 +271,7 @@ const MILITARY_ASSETS = [
         name: "Kinzhal (Kh-47M2)",
         country: "RU",
         type: "Aero-ballistic Hypersonic Missile",
-        description: "An air-launched missile dropped from a modified MiG-31K fighter. Russia claims it flies at Mach 10; Western analysts (RUSI, RAND) assess Mach 4–5 in its terminal phase. Ukraine successfully intercepted Kinzhal missiles using US-supplied Patriot air defense systems in May 2023. Air-launched ballistic missile executing maneuvering evasive dives at high terminal velocity.",
+        description: "An air-launched missile dropped from a modified MiG-31K fighter. Russia claims it flies at Mach 10; Western analysts (RUSI, RAND) assess Mach 4–5 in its terminal phase. Ukrainian Patriot batteries have intercepted Kinzhal missiles in multiple confirmed engagements through 2024–2025, beginning with the world's first confirmed hypersonic intercept in May 2023. Air-launched ballistic missile executing maneuvering evasive dives at high terminal velocity.",
         stats: { fp: 98, def: 42, spd: 100, rng: 98, tec: 96 },
         nato: "AS-24 Killjoy",
         specs: { speed: "Mach 10 claimed (Western est. Mach 4–5)", launch: "MiG-31K Jet Interceptor", range: "2,000 km", warhead: "500 kg HE-Fragmentation" },
@@ -304,7 +293,7 @@ const MILITARY_ASSETS = [
         name: "HIMARS M142",
         country: "UA",
         type: "Precision Multiple Launch Rocket System",
-        description: "An American rocket artillery system mounted on a truck that fires GPS-guided rockets from 80–92 km away — far beyond Russian counter-battery range — and can relocate in minutes to avoid return fire. When Ukraine received HIMARS in summer 2022, it destroyed dozens of Russian ammunition depots that had supplied front-line artillery for months. Light wheeled precision multiple launch rocket system firing six GMLRS GPS-guided rockets (92 km) or one ATACMS ballistic missile (300 km+).",
+        description: "An American rocket artillery system mounted on a truck that fires GPS-guided rockets from 80–92 km away — far beyond Russian counter-battery range — and can relocate in minutes to avoid return fire. When Ukraine received HIMARS in summer 2022, it destroyed dozens of Russian ammunition depots supplying front-line artillery. After receiving ATACMS ballistic missiles in late 2023, Ukrainian HIMARS struck Russian military airfields deep in Crimea in some of the war's most strategically significant strikes. Light wheeled precision multiple launch rocket system firing six GMLRS GPS-guided rockets (92 km) or one ATACMS ballistic missile (300 km+).",
         stats: { fp: 88, def: 42, spd: 78, rng: 85, tec: 92 },
         nato: "N/A",
         specs: { weight: "16.2 tons combat", rockets: "6× GMLRS (92 km) or 1× ATACMS (300 km)", speed: "94 km/h road", crew: "3" },
@@ -338,7 +327,7 @@ const MILITARY_ASSETS = [
         country: "UA",
         type: "Long-Range Air & Missile Defense System",
         description: "The American Patriot air defense system, provided to Ukraine by the US and Germany, uses phased-array radar to track and shoot down ballistic missiles, cruise missiles, and aircraft at long range using hit-to-kill interceptors. In May 2023 a Ukrainian Patriot battery shot down Russian Kinzhal hypersonic missiles — the world's first combat intercept of that weapon type. Mobile theater air and missile defense system using the AN/MPQ-65 phased array radar and PAC-3 MSE hit-to-kill interceptors engaging ballistic missiles at 60+ km range.",
-        stats: { fp: 88, def: 80, spd: 42, rng: 90, tec: 95 },
+        stats: { fp: 88, def: 88, spd: 42, rng: 92, tec: 95 },
         nato: "N/A",
         specs: { interceptors: "16× PAC-3 MSE Hit-to-Kill", range: "60+ km (ballistic), 150 km (aircraft)", radar: "AN/MPQ-65 Phased Array", crew: "90 per battery" },
         citation: "Congressional Research Service — Patriot Missile Systems for Ukraine, 2024"
@@ -362,7 +351,7 @@ const MILITARY_ASSETS = [
         description: "Russia's most-used ground-attack weapon of 2024–2025 — a Soviet-era 500 kg iron bomb fitted with a cheap GPS navigation module and folding wings called the UMPK kit, transforming a dumb gravity bomb into a precision glide weapon. Dropped by Su-34 strike jets (also in this deck) from 60–70 km away — safely beyond most Ukrainian air defense range — Russia deploys approximately 3,500 UMPK-equipped bombs per month. The kit costs a fraction of Western precision munitions, making it one of the most cost-effective battlefield weapons of the modern era.",
         stats: { fp: 92, def: 5, spd: 75, rng: 72, tec: 80 },
         nato: "N/A",
-        specs: { weight: "~640 kg total", warhead: "500 kg HE blast/penetrating", range: "60–70 km glide range", guidance: "GLONASS GPS + inertial navigation" },
+        specs: { weight: "~640 kg total", warhead: "500 kg HE blast/penetrating", range: "60–100 km glide range (variant-dependent)", guidance: "GLONASS GPS + inertial navigation" },
         citation: "CSIS Missile Threat — UMPK Glide Bomb Profile, 2024; The Aviationist, Nov 2024; Kyiv Independent, 2025"
     },
     {
@@ -397,6 +386,50 @@ const MILITARY_ASSETS = [
         nato: "AS-23A Kodiak",
         specs: { weight: "2,400 kg", warhead: "450 kg HE penetrating", speed: "Mach 0.6–0.78 (subsonic)", range: "2,500–3,500 km" },
         citation: "CSIS Missile Threat — Kh-101/Kh-102 Air-Launched Cruise Missile Profile, 2024; GlobalSecurity.org"
+    },
+    {
+        rank: 12,
+        name: "Palianytsia",
+        country: "UA",
+        type: "Turbojet Drone-Missile",
+        description: "Ukraine's most significant domestically produced strike weapon of 2025 — a 320 kg turbojet-powered drone-missile that flies low at 900 km/h and strikes Russian military depots, airfields, and logistics hubs up to 650 km away. Developed by the Luch Design Bureau and manufactured by Ukroboronprom, the Palianytsia entered serial combat use in August 2024 and was personally unveiled by President Zelenskyy on Ukraine's Independence Day as 'a new class of weaponry.' Launched with a solid-fuel booster before its turbojet engine takes over, it carries a 100 kg warhead guided by GPS and inertial navigation.",
+        stats: { fp: 80, def: 12, spd: 72, rng: 86, tec: 84 },
+        nato: "N/A",
+        specs: { weight: "320 kg", warhead: "100 kg HE", speed: "900 km/h", range: "650 km" },
+        citation: "United24 Media — Palianytsia Specs Revealed at MSPO 2025; Wikipedia: Palianytsia (missile); GlobalSecurity.org"
+    },
+    {
+        rank: 11,
+        name: "F-16AM Fighting Falcon",
+        country: "UA",
+        type: "Multirole Fighter Jet",
+        description: "The first advanced Western fighter jet to fly in Ukraine's defense — F-16AM Block 15 MLU jets transferred from the Netherlands and Denmark began combat sorties in summer 2024. Equipped with NATO-standard AIM-120 AMRAAM air-to-air missiles, the F-16 outperforms Ukraine's Soviet-era MiGs in night operations, radar range (~110 km), and cruise missile intercepts. A Ukrainian F-16 was lost in a friendly fire incident in August 2024, highlighting the complex air deconfliction challenges of modern wartime operations.",
+        stats: { fp: 82, def: 58, spd: 92, rng: 72, tec: 88 },
+        nato: "N/A",
+        specs: { weight: "19,187 kg max", speed: "2,178 km/h (Mach 2)", radar: "AN/APG-66(V)2 (~110 km range)", payload: "7,700 kg (AIM-120, AIM-9, bombs)" },
+        citation: "CSIS — F-16s Unleashed: How They Will Impact Ukraine's War, 2024; STRASAM.org F-16 Fighting Falcon in Russia-Ukraine War"
+    },
+    {
+        rank: 9,
+        name: "Dragon SHORAD",
+        country: "UA",
+        type: "Domestic SHORAD Missile System",
+        description: "Ukraine's domestically designed short-range air defense system mounted on a HMMWV truck — publicly unveiled at Eurosatory 2026 after 18 months of secret combat deployment against Shahed drones and cruise missiles. The Dragon fires adapted air-to-air missiles including AIM-9M Sidewinders and R-73s to engage targets up to 15 km away, controlled via Starlink satellite link. Its development is proof that Ukraine can independently build modern air defense systems, reducing reliance on Western deliveries mid-war.",
+        stats: { fp: 72, def: 60, spd: 68, rng: 62, tec: 80 },
+        nato: "N/A",
+        specs: { platform: "HMMWV M1097A1/A2", missiles: "AIM-9M / R-73 / ST-100 (dev.)", range: "8–15 km (missile)", deploy: "15 min setup" },
+        citation: "Army Recognition — Ukraine Dragon Air Defense System Eurosatory 2026; militarnyi.com — Dragon SHORAD Ukraine"
+    },
+    {
+        rank: 13,
+        name: "FAB-1500 UMPK",
+        country: "RU",
+        type: "Precision Guided Heavy Glide Bomb",
+        description: "Russia's most destructive single aerial bomb deployed in Ukraine — a 1,500 kg Soviet-era gravity bomb fitted with the UMPK folding-wing GPS kit, gliding 60–100 km from Su-34 jets to its target. The FAB-1500 can penetrate 3 metres of reinforced concrete and destroy underground bunkers 20 metres deep, making it the primary tool for demolishing hardened Ukrainian fortifications since late 2024. A newer jet-powered UMPK-PD variant reaching 200 km range emerged in combat in 2025, using a Chinese-made turbojet to extend the bomb's standoff distance far beyond Ukrainian air defense coverage.",
+        stats: { fp: 97, def: 5, spd: 75, rng: 78, tec: 82 },
+        nato: "N/A",
+        specs: { weight: "1,500 kg total", warhead: "670 kg HE (penetrates 3m concrete)", range: "60–100 km (UMPK-PD: 200 km)", guidance: "GLONASS GPS + inertial navigation" },
+        citation: "UMPK Wikipedia; The War Zone — Russia's Giant 6,000lb Glide Bomb, 2024; WeaponSpecs Glide Bomb Range Race 2025"
     }
 ];
 
@@ -677,10 +710,14 @@ function handleDraw() {
 }
 
 function aiSelectStat() {
-    // Build sorted stat list (highest first); pick top stat 65%, second stat 35% for non-trivial adversarial play
+    // Stat selection: 25% stat-denial (target user's worst stat), 35% second-best, 40% best
     const sorted = Object.entries(activeAiCard.stats).sort((a, b) => b[1] - a[1]);
     let bestStat;
-    if (sorted.length >= 2 && Math.random() < 0.35) {
+    const roll = Math.random();
+    if (roll < 0.25) {
+        const userSorted = Object.entries(activeUserCard.stats).sort((a, b) => a[1] - b[1]);
+        bestStat = userSorted[0][0];
+    } else if (roll < 0.60 && sorted.length >= 2) {
         bestStat = sorted[1][0];
     } else {
         bestStat = sorted[0][0];
@@ -995,8 +1032,8 @@ function renderCard(card, container, isFaceDown, isInteractive, onStatClick) {
             <div class="card-overlay-tag">// NATO: ${card.nato}</div>
         </div>
         <div class="card-description">${card.description}</div>
-        <div class="card-stats-list${interactiveCls}">${statsHTML}</div>
         ${tapHint}
+        <div class="card-stats-list${interactiveCls}">${statsHTML}</div>
     `;
     
     // Add Click listener to stats rows if interactive
